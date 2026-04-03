@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=block');
+
+@font-face {
+  font-family: "Exat Wide Regular";
+  src: url("assets/exat-font-family/exatcyrwide-regular.otf");
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Exat Wide Medium";
+  src: url("assets/exat-font-family/exatcyr-medium.otf");
+  font-display: block;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #a4bfdd;
+  height: 100%;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+header {
+  box-sizing: border-box;
+  font-family: "Exat Wide Medium";
+  background-color: black;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
+  color: #a4bfdd;
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 1px solid #c5598c;
+}
+
+.header_name {
+  font-size: 20px;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #a4bfdd;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  font-size: 12px;
+  gap: 20px;
+  flex: 1 0 0;
+}
+
+.right_list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.right_list > li {
+  margin: 0rem 0.25rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+.hero {
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  box-shadow: inset(10rem 10rem black);
+  background-image: url("assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.first_name,
+.last_name {
+  width: min-content;
+  padding-left: 0rem;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Exat Wide Regular";
+  color: #111f2f;
+  text-shadow: 
+  1px 1px 2px #a4bfdd, 
+  1px -1px 2px #a4bfdd,
+  -1px -1px 2px #c5598c, 
+  -1px 1px 2px #c5598c;
+  font-size: 5rem;
+}
+
+.intro {
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+}
+
+.hero_img_container {
+  overflow: hidden;
+}
+
+.first_name > div,
+.last_name > div,
+.intro > div,
+.hero_img_container > img {
+  visibility: hidden;
+}
