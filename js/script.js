@@ -17,10 +17,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     .from(
       heroImg,
       {
-        xPercent: 100,
+        xPercent: 20,
         opacity: 0,
-        duration: 1,
+        duration: 1.5,
+        ease: "power4.out"
       },
-      "-=0.6",
+      "-=1",
     );
 });
