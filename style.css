@@ -81,7 +81,7 @@ li {
 .hero {
   box-sizing: border-box;
   position: relative;
-  min-height: 93vh;
+  height: 100vh;
   width: 100%;
 }
 
@@ -112,6 +112,21 @@ li {
   width: 100%;
 }
 
+.hero-sticker {
+  position: absolute;
+  background-color: #a44033;
+  color: #f5e9dc;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5vw;
+  font-weight: bold;
+  padding: 0.5vw 0.5vw;
+  border-radius: 50px;
+  top: 15vw;
+  right: 5vw;
+  transform: rotate(-10deg);
+  width: max-content;
+}
+
 .job-title {
   position: absolute;
   font-family: "Melvina", cursive, serif;
@@ -139,25 +154,24 @@ li {
   left: 1.5vw;
 }
 
-.location{
-    position: absolute;
-    width: max-content;
-    font-size: 1.5vw;
-    top: 37.5vw;
-    font-family: "Exat Wide Regular";
-    right: 0.4vw;
+.location {
+  position: absolute;
+  width: max-content;
+  font-size: 1.5vw;
+  top: 37.5vw;
+  font-family: "Exat Wide Regular";
+  right: 0.4vw;
 }
 
-.about{
-position: relative;
+.about {
+  position: relative;
 }
 
 .about-transition-text {
   width: 20vw;
   font-size: 1.5vw;
   font-family: "Exat Wide Regular";
-  position: absolute;
-  top: -10vw;
+  margin-left: 1.5vw;
 }
 
 .project_link {
