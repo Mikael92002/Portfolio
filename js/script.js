@@ -1,7 +1,11 @@
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener("DOMContentLoaded", (event) => {
   const name = ".name>div";
   const heroImg = ".hero_img_container>img";
-  gsap.set([name, heroImg], { visibility: "visible" });
+  const jobTitle = ".job-title>div";
+  const facts = ".alt-titles>div";
+  gsap.set([name, heroImg, jobTitle, facts], { visibility: "visible" });
 
   const tl = gsap.timeline();
   // the -=0.8 provides overlap, so 2nd anim for e.g. plays
@@ -13,14 +17,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     yPercent: 150,
     duration: 1,
     ease: "circ.out",
-  }).from(
-    heroImg,
-    {
-      yPercent: 100,
-      opacity: 0,
-      duration: 1.5,
-      ease: "power4.out",
-    },
-    "-=1.4",
-  );
+  })
+    .from(
+      heroImg,
+      {
+        yPercent: 20,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power4.out",
+      },
+      "<",
+    )
+    .from(facts, { xPercent: -100, opacity: 0, duration: 1 }, "<")
+    .from(jobTitle, { opacity: 0, duration: 0.5 }, ">");
 });

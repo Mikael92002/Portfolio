@@ -5,7 +5,7 @@
 }
 
 @font-face {
-  font-family: "Exat Wide Medium";
+  font-family: "Exat Medium";
   src: url("assets/exat-font-family/exatcyr-medium.otf");
   font-display: block;
 }
@@ -17,24 +17,23 @@
 }
 
 @font-face {
-    font-family: "Melvina";
-    src: url("assets/natural_signature/NaturalSignature.otf");
-    font-display: block;
+  font-family: "Melvina";
+  src: url("assets/natural_signature/NaturalSignature.otf");
+  font-display: block;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
   background-color: #f5e9dc;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-body{
-    padding: 0 1rem;
+body {
+  padding: 0 2vw;
 }
 
 .hidden {
@@ -47,18 +46,9 @@ header {
   justify-content: space-between;
   align-items: center;
   color: black;
-  padding: 1rem;
+  padding: 1rem 1.5vw;
   margin: 0;
   font-family: "Montserrat", sans-serif;
-}
-
-@media screen and (max-width: 960px) {
-  header {
-    grid-template-columns: 1fr 1fr 0.5fr;
-  }
-  .header_name {
-    text-align: center;
-  }
 }
 
 a {
@@ -73,17 +63,15 @@ ul {
   display: flex;
   font-size: 12px;
   gap: 20px;
-  flex: 0 1 0;
 }
 
 .right_list {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
-.right_list > li {
-  margin: 0rem 0.25rem;
+.right_list > li:last-child {
+  margin-right: 0.4vw;
 }
 
 li {
@@ -92,10 +80,9 @@ li {
 
 .hero {
   box-sizing: border-box;
-  max-width: 100%;
-  max-height: 100%;
   position: relative;
-  flex: 1;
+  min-height: 93vh;
+  width: 100%;
 }
 
 .name {
@@ -107,44 +94,72 @@ li {
   line-height: 1;
   font-size: 9vw;
   letter-spacing: 2vw;
+  text-indent: 1vw;
+  z-index: 2;
+  text-wrap: nowrap;
+  text-align: center;
+}
+
+.hero_img_container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(10%);
+  top: 10vw;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero_img_container > img {
+  width: 100%;
+}
+
+.job-title {
+  position: absolute;
+  font-family: "Melvina", cursive, serif;
+  left: 50%;
+  transform: translateX(-50%) translateY(3%);
+  top: 2vw;
+  font-size: 10vw;
+  width: max-content;
+  color: #a44033;
   z-index: 2;
 }
 
-.hero_img_container{
-    position: absolute;
-    left:50%;
-    transform: translateX(-50%) translateY(10%);
-    top: 10%;
-    z-index: 1;
-    overflow: hidden;
-}
-.hero_img_container>img{
-    width: 100%;
-}
-.engineer{
-    position: absolute;
-    font-family: "Melvina", cursive, serif;
-    left:50%;
-    transform: translateX(-50%) translateY(3%);
-    top: 3%;
-    font-size: 10vw;
-    color: #a44033;
-    z-index: 2;
-}
-
-.name>div{
-    text-wrap: nowrap;
-    text-align: center;
-}
-
-.intro {
-  margin-top: 1rem;
-  overflow: hidden;
-  font-family: "Montserrat";
-  font-size: 1.5rem;
-  color: white;
-}
-
-.name {
+.name,
+.job-title,
+.hero_img_container {
   visibility: hidden;
+}
+
+.alt-titles {
+  position: absolute;
+  width: 20vw;
+  font-size: 1.5vw;
+  top: 12.5vw;
+  font-family: "Exat Wide Regular";
+  left: 1.5vw;
+}
+
+.location{
+    position: absolute;
+    width: max-content;
+    font-size: 1.5vw;
+    top: 37.5vw;
+    font-family: "Exat Wide Regular";
+    right: 0.4vw;
+}
+
+.about{
+position: relative;
+}
+
+.about-transition-text {
+  width: 20vw;
+  font-size: 1.5vw;
+  font-family: "Exat Wide Regular";
+  position: absolute;
+  top: -10vw;
+}
+
+.project_link {
+  color: #a44033;
 }
