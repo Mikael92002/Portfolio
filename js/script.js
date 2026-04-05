@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const jobTitle = ".job-title>div";
   const altTitles = ".alt-titles>div";
   const location = ".location>div";
-  const pill = ".pill";
+  const pill = ".pill>div";
   const hero = ".hero";
   const body = "body";
   const aboutTrans = ".about-transition-text";
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       trigger: hero,
       scrub: 1,
       start: "center center",
-      markers: true,
+    //   markers: true,
     },
   });
 

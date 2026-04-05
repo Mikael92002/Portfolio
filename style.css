@@ -71,7 +71,6 @@ ul {
 
 .right_list {
   display: flex;
-  align-items: center;
 }
 
 .right_list > li:last-child {
@@ -87,7 +86,8 @@ li {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr;
-  height: calc(100vh - 60px);
+  height: calc(100vh);
+  min-height: 450px;
   width: 100%;
 }
 
@@ -96,7 +96,6 @@ li {
   overflow: hidden;
   font-family: "Exat Wide Regular";
   color: black;
-  line-height: 1;
   font-size: 9vw;
   letter-spacing: 2vw;
   text-indent: 1vw;
@@ -111,29 +110,38 @@ li {
   font-size: 7vw;
   color: #a44033;
   z-index: 2;
-  margin: -7vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: -7vw 0vw;
+  text-align: center;
 }
 
 .hero-main {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 0;
+  grid-template-columns: 0.8fr 1fr 0.8fr;
   grid-template-rows: 1fr 1fr 1fr;
+  position: relative;
 }
 
 .hero-img-container {
   z-index: 1;
   overflow: hidden;
   grid-row: 1/4;
+  min-height: 0;
 }
 .hero-img-container > img {
   object-fit: contain;
   width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .pill {
+  position: absolute;
+  right: 10vw;
+  top: 5vw;
+}
+
+.pill > div {
   background-color: #a44033;
   color: #f5e9dc;
   font-family: "Montserrat", sans-serif;
@@ -163,14 +171,16 @@ li {
   font-family: "Exat Wide Regular";
   overflow: hidden;
   grid-column: 3/4;
-  grid-row: 3/4;
+  grid-row: 1/2;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-right: 0.4vw;
+  position: absolute;
+  top: calc(15vw + 15vh);
 }
 
 .about {
-
 }
 
 .project_link {
