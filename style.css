@@ -49,6 +49,10 @@ header {
   padding: 1rem 1.5vw;
   margin: 0;
   font-family: "Montserrat", sans-serif;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+  background-color: #f5e9dc;
 }
 
 a {
@@ -80,13 +84,13 @@ li {
 
 .hero {
   box-sizing: border-box;
-  position: relative;
-  height: 100vh;
+  display: grid;
+  grid-template-rows: fit-content fit-content 1fr;
+  height: calc(100vh - 60px);
   width: 100%;
 }
 
 .name {
-  position: absolute;
   width: 100%;
   overflow: hidden;
   font-family: "Exat Wide Regular";
@@ -101,19 +105,18 @@ li {
 }
 
 .hero_img_container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(10%);
-  top: 10vw;
   z-index: 1;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 .hero_img_container > img {
+  object-fit: contain;
   width: 100%;
 }
 
 .pill {
-  position: absolute;
   background-color: #a44033;
   color: #f5e9dc;
   font-family: "Montserrat", sans-serif;
@@ -128,19 +131,17 @@ li {
 }
 
 .job-title {
-  position: absolute;
   font-family: "Melvina", cursive, serif;
-  left: 50%;
-  transform: translateX(-50%) translateY(3%);
-  top: 2vw;
-  font-size: 10vw;
-  width: max-content;
+  font-size: 7vw;
   color: #a44033;
   z-index: 2;
+  margin: -7vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .alt-titles {
-  position: absolute;
   width: 20vw;
   font-size: 1.5vw;
   top: 12.5vw;
@@ -149,7 +150,6 @@ li {
 }
 
 .location {
-  position: absolute;
   width: max-content;
   font-size: 1.5vw;
   top: 37.5vw;
@@ -159,14 +159,7 @@ li {
 }
 
 .about {
-  position: relative;
-}
 
-.about-transition-text {
-  width: 20vw;
-  font-size: 1.5vw;
-  font-family: "Exat Wide Regular";
-  margin-left: 1.5vw;
 }
 
 .project_link {
@@ -179,6 +172,7 @@ li {
 .hero_img_container,
 .location,
 .alt-titles,
-.pill {
+.pill,
+.about-transition-text {
   visibility: hidden;
 }

@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const altTitles = ".alt-titles>div";
   const location = ".location>div";
   const pill = ".pill";
-  gsap.set([name, heroImg, jobTitle, altTitles, location, pill], {
+  const hero = ".hero"
+  const body = "body"
+  const aboutTrans = ".about-transition-text";
+  gsap.set([name, heroImg, jobTitle, altTitles, location, pill, aboutTrans], {
     visibility: "visible",
   });
 
@@ -32,7 +35,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
       },
       "<",
     )
-    .from(altTitles, { xPercent: -100, opacity: 0, duration: 1 }, "<")
+    .from(
+      [altTitles, aboutTrans],
+      { xPercent: -100, opacity: 0, duration: 1 },
+      "<",
+    )
     .from(location, { xPercent: 100, opacity: 0, duration: 1 }, "<")
     .from(pill, { opacity: 0, duration: 1 }, "<")
     .from(jobTitle, { opacity: 0, duration: 0.5 }, ">");
@@ -44,7 +51,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   const loopPill = gsap.timeline({ repeat: 3 });
-
   loopPill
     .to(pill, { rotation: 20, ease: "power1.inOut", duration: 0.2 })
     .to(pill, { rotation: -20, ease: "power1.inOut", duration: 0.2 });
@@ -54,4 +60,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
     .add(loopPill, "-=0.5")
     .to(pill, { scale: 1, duration: 0.5, ease: "power3.inOut" }, "-=0.5")
     .to(pill, { duration: 4 });
+
+  const scrubTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: hero,
+      scrub: 1,
+      start: "center center",
+      markers: true,
+    },
+  });
+
+//   scrubTl.from(aboutTrans, { y:-100 });
 });
