@@ -85,7 +85,8 @@ li {
 .hero {
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: fit-content fit-content 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content min-content 1fr;
   height: calc(100vh - 60px);
   width: 100%;
 }
@@ -102,32 +103,7 @@ li {
   z-index: 2;
   text-wrap: nowrap;
   text-align: center;
-}
-
-.hero_img_container {
-  z-index: 1;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-.hero_img_container > img {
-  object-fit: contain;
-  width: 100%;
-}
-
-.pill {
-  background-color: #a44033;
-  color: #f5e9dc;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.5vw;
-  font-weight: bold;
-  padding: 0.5vw 0.5vw;
-  border-radius: 50px;
-  top: 15vw;
-  right: 5vw;
-  transform: rotate(-20deg);
-  width: max-content;
+  grid-row: 1/2;
 }
 
 .job-title {
@@ -141,21 +117,56 @@ li {
   align-items: center;
 }
 
+.hero-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.hero-img-container {
+  z-index: 1;
+  overflow: hidden;
+  grid-row: 1/4;
+}
+.hero-img-container > img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.pill {
+  background-color: #a44033;
+  color: #f5e9dc;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5vw;
+  font-weight: bold;
+  padding: 0.5vw 0.5vw;
+  border-radius: 50px;
+  transform: rotate(-20deg);
+  width: fit-content;
+  height: fit-content;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
 .alt-titles {
   width: 20vw;
   font-size: 1.5vw;
-  top: 12.5vw;
   font-family: "Exat Wide Regular";
-  left: 1.5vw;
+  margin-left: 1.5vw;
+  grid-column: 1/2;
+  grid-row: 1/2;
 }
 
 .location {
-  width: max-content;
+  width: 100%;
   font-size: 1.5vw;
-  top: 37.5vw;
   font-family: "Exat Wide Regular";
-  right: 0.4vw;
   overflow: hidden;
+  grid-column: 3/4;
+  grid-row: 3/4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .about {
@@ -167,11 +178,11 @@ li {
 }
 
 /* DO NOT MOVE: */
-.name,
-.job-title,
-.hero_img_container,
-.location,
-.alt-titles,
+.name > div,
+.job-title > div,
+.hero-img-container > img,
+.location > div,
+.alt-titles > div,
 .pill,
 .about-transition-text {
   visibility: hidden;

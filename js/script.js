@@ -2,13 +2,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const name = ".name>div";
-  const heroImg = ".hero_img_container>img";
+  const heroImg = ".hero-img-container>img";
   const jobTitle = ".job-title>div";
   const altTitles = ".alt-titles>div";
   const location = ".location>div";
   const pill = ".pill";
-  const hero = ".hero"
-  const body = "body"
+  const hero = ".hero";
+  const body = "body";
   const aboutTrans = ".about-transition-text";
   gsap.set([name, heroImg, jobTitle, altTitles, location, pill, aboutTrans], {
     visibility: "visible",
@@ -70,5 +70,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
     },
   });
 
-//   scrubTl.from(aboutTrans, { y:-100 });
+  //   scrubTl.from(aboutTrans, { y:-100 });
 });
