@@ -7,10 +7,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const altTitles = ".alt-titles>div";
   const location = ".location>div";
   const pill = ".pill>div";
-  const hero = ".hero";
+  const transition = ".transition";
   const body = "body";
-  const aboutTrans = ".about-transition-text";
-  gsap.set([name, heroImg, jobTitle, altTitles, location, pill, aboutTrans], {
+  const transitionText = ".transition-text";
+  const featuredWork = ".work";
+  const workGrid_1 = ".work-grid-1";
+
+  gsap.set([name, heroImg, jobTitle, altTitles, location, pill], {
     visibility: "visible",
   });
 
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       "<",
     )
     .from(
-      [altTitles, aboutTrans],
+      [altTitles, transitionText],
       { xPercent: -100, opacity: 0, duration: 1 },
       "<",
     )
@@ -61,14 +64,49 @@ document.addEventListener("DOMContentLoaded", (event) => {
     .to(pill, { scale: 1, duration: 0.5, ease: "power3.inOut" }, "-=0.5")
     .to(pill, { duration: 4 });
 
-  const scrubTl = gsap.timeline({
+  const transitionScrubTl = gsap.timeline({
     scrollTrigger: {
-      trigger: hero,
+      trigger: transition,
       scrub: 1,
-      start: "center center",
-    //   markers: true,
+      start: "top bottom",
+      end: "bottom bottom",
+      invalidateOnRefresh: true,
     },
   });
 
-  //   scrubTl.from(aboutTrans, { y:-100 });
+  transitionScrubTl.to(transitionText, { yPercent: 100, ease: "none" });
+
+  const featuredWorkTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: featuredWork,
+      start: "15% bottom",
+      markers: true,
+    },
+  });
+
+  featuredWorkTl.from(workGrid_1, { xPercent: -100, duration: 1, ease: "power4.inOut" });
 });
+
+function resizeInvisibleText() {
+  const transitionTextElement = document.querySelector(".transition-text");
+  const transitionTextInvisibleElement = document.querySelector(
+    ".transition-text.invisible",
+  );
+
+  if (transitionTextElement && transitionTextInvisibleElement) {
+    // need 2 do bc gsap transform messes up calculations:
+    transitionTextElement.style.transform = "none";
+
+    transitionTextInvisibleElement.style.width = window.getComputedStyle(
+      transitionTextElement,
+    ).width;
+    transitionTextInvisibleElement.style.height = window.getComputedStyle(
+      transitionTextElement,
+    ).height;
+
+    ScrollTrigger.refresh();
+  }
+}
+
+window.addEventListener("load", resizeInvisibleText);
+window.addEventListener("resize", resizeInvisibleText);

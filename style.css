@@ -102,13 +102,14 @@ li {
   overflow: hidden;
   font-family: "Exat Wide Regular";
   color: black;
-  font-size: 9vw;
-  letter-spacing: 2vw;
-  text-indent: 1vw;
+  font-size: 11vw;
+  /* letter-spacing: 2vw; */
+  /* text-indent: 1vw; */
   z-index: 2;
   text-wrap: nowrap;
   text-align: center;
   grid-row: 1/2;
+  margin: -1vw 0vw;
 }
 
 .job-title {
@@ -196,6 +197,34 @@ li {
   top: 40vh;
 }
 
+.transition-container {
+  font-family: "Exat Wide Regular", sans-serif;
+}
+
+.transition-text-container {
+  grid-row: 3/4;
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 1vw;
+}
+
+.below-text,
+.transition-text {
+  font-size: 1.5vw;
+  margin: 0;
+  margin-left: 1.5vw;
+  font-family: "Exat Wide Regular", sans-serif;
+  height: fit-content;
+  width: fit-content;
+}
+
+.invisible {
+  /* adjust width and height in js */
+  visibility: hidden;
+}
+
 .work {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -204,9 +233,9 @@ li {
   margin-top: 60px;
 }
 
-.work-grid-1{
-    width: 75%;
-    margin-left: 1.5vw;
+.work-grid-1 {
+  width: 75%;
+  margin-left: 1.5vw;
 }
 
 .work-grid-1 > h1 {
@@ -215,12 +244,14 @@ li {
   font-weight: 550;
   margin-top: 0px;
 }
+
 .work-grid-1 > p {
   font-family: "Exat Wide Regular";
+  font-size: 1.5vw;
 }
 
 .work-grid-2 {
-    border-left: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .project-link {
