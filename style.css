@@ -16,7 +16,7 @@
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Montserrat Medium";
   src: url("assets/Montserrat/static/Montserrat-Medium.ttf");
   font-display: block;
 }
@@ -37,10 +37,6 @@ body {
   flex-direction: column;
 }
 
-body {
-  padding: 0 2vw;
-}
-
 .hidden {
   opacity: 0;
 }
@@ -53,12 +49,15 @@ header {
   color: black;
   padding: 1rem 1.5vw;
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat Medium", sans-serif;
+  font-size: large;
   position: sticky;
   top: 0px;
   z-index: 10;
-  background-color: #f5e9dc;
+  background-color: #f5e9dc50;
   height: 60px;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 a {
@@ -93,6 +92,7 @@ li {
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr;
   height: calc(100vh - 60px);
+  padding-top: 60px;
   min-height: 450px;
   width: 100%;
 }
@@ -109,7 +109,7 @@ li {
   text-wrap: nowrap;
   text-align: center;
   grid-row: 1/2;
-  margin: -1vw 0vw;
+  margin-bottom: -1vw;
 }
 
 .job-title {
@@ -230,7 +230,6 @@ li {
   grid-template-columns: 1.25fr 1fr;
   grid-template-rows: 1fr;
   min-height: calc(100vh - 60px);
-  margin-top: 60px;
 }
 
 .work-grid-1 {
@@ -254,8 +253,10 @@ li {
   border-left: 1px solid black;
 }
 
-.project-link {
+.project-link,
+.github-link {
   color: #a44033;
+  cursor: pointer;
 }
 
 /* DO NOT MOVE: */

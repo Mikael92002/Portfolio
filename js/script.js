@@ -1,5 +1,6 @@
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
+//gsap timelines (scroll and time-based):
 document.addEventListener("DOMContentLoaded", (event) => {
   const name = ".name>div";
   const heroImg = ".hero-img-container>img";
@@ -84,9 +85,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
     },
   });
 
-  featuredWorkTl.from(workGrid_1, { xPercent: -100, duration: 1, ease: "power4.inOut" });
+  featuredWorkTl.from(workGrid_1, {
+    xPercent: -100,
+    duration: 1,
+    ease: "power4.inOut",
+  });
+
+  
+  // smoother:
+let smoother = ScrollSmoother.create({
+  wrapper: "#smooth-wrapper",
+  content: "#smooth-content",
+  smooth: 1,
 });
 
+let projectLink = document.querySelector(".project-link");
+projectLink.addEventListener("click", () => {
+  smoother.scrollTo(".work", true, "bottom bottom");
+});
+
+});
+
+// scrollTrigger quirks:
 function resizeInvisibleText() {
   const transitionTextElement = document.querySelector(".transition-text");
   const transitionTextInvisibleElement = document.querySelector(

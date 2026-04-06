@@ -6,9 +6,11 @@
     <title>Mikael's Website</title>
     <script src="js/gsap.min.js" defer></script>
     <script src="js/ScrollTrigger.min.js" defer></script>
+    <script src="js/ScrollSmoother.min.js" defer></script>
     <script src="js/script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header>
       <nav>
@@ -53,69 +55,80 @@
         </li>
       </ul>
     </header>
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main class="hero">
+          <div class="name">
+            <div>MIKAEL KARIM</div>
+          </div>
+          <div class="job-title">
+            <div>Developer</div>
+          </div>
+          <div class="hero-main">
+            <div class="alt-titles">
+              <div>SOFTWARE ENGINEER</div>
+              <div>WEB DEVELOPER</div>
+            </div>
+            <div class="hero-img-container">
+              <img src="assets/pfp bw.png" alt="Hero Section Picture" />
+            </div>
+            <div class="pill">
+              <div>Open To Work</div>
+            </div>
+            <div class="location">
+              <div>BASED IN</div>
+              <div>Houston, Texas</div>
+            </div>
+            <div class="transition-text-container">
+              <p class="transition-text">
+                As a Computer Engineering student at the University of Houston,
+                Mikael honed his skill through hands-on
+                <span class="project-link"><strong>PROJECTS</strong></span
+                >...
+              </p>
+            </div>
+          </div>
+        </main>
 
-    <main class="hero">
-      <div class="name">
-        <div>MIKAEL KARIM</div>
-      </div>
-      <div class="job-title">
-        <div>Developer</div>
-      </div>
-      <div class="hero-main">
-        <div class="alt-titles">
-          <div>SOFTWARE ENGINEER</div>
-          <div>WEB DEVELOPER</div>
-        </div>
-        <div class="hero-img-container">
-          <img src="assets/pfp bw.png" alt="Hero Section Picture" />
-        </div>
-        <div class="pill">
-          <div>Open To Work</div>
-        </div>
-        <div class="location">
-          <div>BASED IN</div>
-          <div>Houston, Texas</div>
-        </div>
-        <div class="transition-text-container">
-          <p class="transition-text">
+        <section class="transition">
+          <p class="transition-text invisible">
             As a Computer Engineering student at the University of Houston,
             Mikael honed his skill through hands-on
-            <span class="project-link"><strong>PROJECTS</strong></span
+            <a href="#work" class="project-link" id="project-link-span"
+              ><strong>PROJECTS</strong></a
             >...
           </p>
-        </div>
-      </div>
-    </main>
+          <div class="transition-container">
+            <p class="below-text">...As seen below.</p>
+          </div>
+        </section>
 
-    <section class="transition">
-      <p class="transition-text invisible">
-        As a Computer Engineering student at the University of Houston, Mikael
-        honed his skill through hands-on
-        <span class="project-link"><strong>PROJECTS</strong></span
-        >...
-      </p>
-      <div class="transition-container">
-        <p class="below-text">...As seen below.</p>
+        <section class="work" id="work">
+          <div class="work-grid-1">
+            <h1>FEATURED<br />WORK</h1>
+            <p>
+              From AI to full-stack systems, Mikael has left no stone unturned.
+              <br /><br />
+              Each project is carefully tackled - planning first, then immediate
+              action. Driven by a no-compromise mentality, Mikael believes this
+              thinking is the only way to bridge the gap between radical
+              engineering and consistent user experience.
+            </p>
+            <p>
+              View all of Mikael's work here:
+              <a
+                href="https://github.com/Mikael92002"
+                rel="noopener
+              noreferrer"
+                target="_blank"
+                class="github-link"
+                ><strong>GITHUB</strong></a
+              >
+            </p>
+          </div>
+          <div class="work-grid-2"></div>
+        </section>
       </div>
-    </section>
-
-    <section class="work">
-      <div class="work-grid-1">
-        <h1>FEATURED<br />WORK</h1>
-        <p>
-          From AI to full-stack systems, Mikael has left no stone unturned.
-          <br /><br />
-          Each project is carefully tackled - planning first, then immediate
-          action. Driven by a no-compromise mentality, Mikael believes this
-          thinking is the only way to bridge the gap between radical engineering
-          and consistent user experience.
-        </p>
-        <p>
-          View all of Mikael's work here:
-          <span class="project-link"><strong>PROJECTS</strong></span>
-        </p>
-      </div>
-      <div class="work-grid-2"></div>
-    </section>
+    </div>
   </body>
 </html>
