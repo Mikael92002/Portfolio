@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const altTitles = ".alt-titles>div";
   const location = ".location>div";
   const pill = ".pill>div";
-  const transition = ".transition";
+  const work = ".work";
+  const invisibleTransition = ".transition-text.invisible";
   const body = "body";
-  const transitionText = ".transition-text";
-  const featuredWork = ".work";
-  const workGrid_1 = ".work-grid-1";
+  const transitionText = "#transition-text";
+  const featuredWorkHeading = ".featured-work-h1";
+  // const workGrid_1 = ".work-grid-1";
 
   gsap.set([name, heroImg, jobTitle, altTitles, location, pill], {
     visibility: "visible",
@@ -67,48 +68,31 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const transitionScrubTl = gsap.timeline({
     scrollTrigger: {
-      trigger: transition,
+      trigger: work,
       scrub: 1,
       start: "top bottom",
-      end: "bottom bottom",
+      end: "bottom bottom ",
       invalidateOnRefresh: true,
+      onLeave: () => {
+        gsap.to(transitionText, { autoAlpha: 0, duration: 1, overwrite: "auto" });
+        gsap.to(featuredWorkHeading, { autoAlpha: 1, duration: 1 })
+      },
+      onEnterBack: () => {
+        gsap.to(transitionText, { autoAlpha: 1, duration: 1, overwrite: "auto" });
+        gsap.to(featuredWorkHeading, {autoAlpha: 0, duration: 1})
+      },
+      markers: true,
     },
   });
 
   transitionScrubTl.to(transitionText, { yPercent: 100, ease: "none" });
 
-  const featuredWorkTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: featuredWork,
-      start: "15% bottom",
-      markers: true,
-    },
-  });
-
-  featuredWorkTl.from(workGrid_1, {
-    xPercent: -100,
-    duration: 1,
-    ease: "power4.inOut",
-  });
-
   
-  // smoother:
-let smoother = ScrollSmoother.create({
-  wrapper: "#smooth-wrapper",
-  content: "#smooth-content",
-  smooth: 1,
-});
-
-let projectLink = document.querySelector(".project-link");
-projectLink.addEventListener("click", () => {
-  smoother.scrollTo(".work", true, "bottom bottom");
-});
-
 });
 
 // scrollTrigger quirks:
 function resizeInvisibleText() {
-  const transitionTextElement = document.querySelector(".transition-text");
+  const transitionTextElement = document.querySelector("#transition-text");
   const transitionTextInvisibleElement = document.querySelector(
     ".transition-text.invisible",
   );
