@@ -74,20 +74,32 @@ document.addEventListener("DOMContentLoaded", (event) => {
       end: "bottom bottom ",
       invalidateOnRefresh: true,
       onLeave: () => {
-        gsap.to(transitionText, { autoAlpha: 0, duration: 1, overwrite: "auto" });
-        gsap.to(featuredWorkHeading, { autoAlpha: 1, duration: 1 })
+        gsap.to(transitionText, {
+          autoAlpha: 0,
+          duration: 1,
+          overwrite: "auto",
+        });
+        gsap.to(featuredWorkHeading, { autoAlpha: 1, duration: 1 });
       },
       onEnterBack: () => {
-        gsap.to(transitionText, { autoAlpha: 1, duration: 1, overwrite: "auto" });
-        gsap.to(featuredWorkHeading, {autoAlpha: 0, duration: 1})
+        gsap.to(transitionText, {
+          autoAlpha: 1,
+          duration: 1,
+          overwrite: "auto",
+        });
+        gsap.to(featuredWorkHeading, { autoAlpha: 0, duration: 1 });
       },
-      markers: true,
     },
   });
 
   transitionScrubTl.to(transitionText, { yPercent: 100, ease: "none" });
 
-  
+  const featuredWorkPinnedTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: work,
+      pin: true,
+    },
+  });
 });
 
 // scrollTrigger quirks:
