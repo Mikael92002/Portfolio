@@ -71,35 +71,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
       trigger: work,
       scrub: 1,
       start: "top bottom",
-      end: "bottom bottom ",
+      end: "75% bottom",
       invalidateOnRefresh: true,
       onLeave: () => {
-        gsap.to(transitionText, {
+        gsap.to(".transition-text.invisible", {
           autoAlpha: 0,
           duration: 1,
           overwrite: "auto",
         });
         gsap.to(featuredWorkHeading, { autoAlpha: 1, duration: 1 });
+        gsap.to(".project", { autoAlpha: 1, duration: 1 });
       },
       onEnterBack: () => {
-        gsap.to(transitionText, {
+        gsap.to(".transition-text.invisible", {
           autoAlpha: 1,
           duration: 1,
           overwrite: "auto",
         });
         gsap.to(featuredWorkHeading, { autoAlpha: 0, duration: 1 });
+        gsap.to(".project", { autoAlpha: 0, duration: 1 });
       },
     },
   });
 
-  transitionScrubTl.to(transitionText, { yPercent: 100, ease: "none" });
+  transitionScrubTl.from(
+    ".transition-text.invisible",
+    { yPercent: -100, ease: "none" },
+    "<",
+  );
 
-  const featuredWorkPinnedTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: work,
-      pin: true,
-    },
-  });
+  // const featuredWorkPinnedTl = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: ".project-container",
+  //     pin: true,
+  //   },
+  // });
 });
 
 // scrollTrigger quirks:
@@ -110,9 +116,6 @@ function resizeInvisibleText() {
   );
 
   if (transitionTextElement && transitionTextInvisibleElement) {
-    // need 2 do bc gsap transform messes up calculations:
-    transitionTextElement.style.transform = "none";
-
     transitionTextInvisibleElement.style.width = window.getComputedStyle(
       transitionTextElement,
     ).width;
