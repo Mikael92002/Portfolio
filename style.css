@@ -275,7 +275,7 @@ li {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  opacity: 0;
+  opacity: 1;
   margin-right: 0.5rem;
 }
 
@@ -290,17 +290,38 @@ li {
   width: 300%;
   overflow: hidden;
   max-height: 100%;
+  padding-left: 5px;
+  padding-right: 20px;
 }
 
 .project {
   background-color: #f5e9dc;
-  opacity: 0;
-  margin: 10px 0px;
+  opacity: 1;
+  margin: 10px 0;
   display: grid;
   grid-template-columns: min-content 9fr;
   grid-template-rows: 1fr;
   min-height: 0;
   max-height: 100%;
+}
+
+.project.one {
+  background-color: #0b3d91;
+  color: white;
+}
+.project.one > .project-inner.one {
+  border-left: 1px solid white;
+}
+.project.two > .project-inner.one {
+  border-left: 1px solid black;
+}
+.project.three > .project-inner.one {
+  border-left: 1px solid #6cc417;
+}
+
+.project.three {
+  background-color: #454545;
+  color: #6cc417;
 }
 
 .project-inner.one {
@@ -310,7 +331,6 @@ li {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  border-left: 1px solid black;
 }
 
 .project-inner.two {
@@ -324,12 +344,14 @@ li {
 .project-content {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .project-title {
   margin: 0;
   font-family: "Exat Wide Regular";
   font-size: 1.5rem;
+  margin-inline: 10px;
 }
 
 .project-img-container {
@@ -348,7 +370,7 @@ li {
 
 .project-description,
 .technologies {
-  font-family: "Exat Wide Light";
+  font-family: "Montserrat", sans-serif;
   padding-inline: 5px;
   text-align: center;
   font-size: 1.5vw;
@@ -392,6 +414,12 @@ li {
   margin-left: 0.5rem;
 }
 
+.position{
+  background-color: black;
+  height: 1px;
+  width: 1px;
+}
+
 .project-link,
 .github-link {
   color: #a44033;
@@ -400,7 +428,7 @@ li {
 
 footer {
   background-color: black;
-  min-height: 60px;
+  min-height: 25px;
 }
 
 /* DO NOT MOVE: */
