@@ -386,7 +386,7 @@ li {
   margin: 0px 2px;
 }
 
-.code-link {
+.code-link, #send-email-button {
   background-color: #a44033;
   color: white;
   padding: 0.25vw 0.75vw;
@@ -397,12 +397,12 @@ li {
   margin: 0 auto;
   height: fit-content;
 }
-.code-link:hover {
+.code-link:hover, #send-email-button:hover {
   background-color: #a4403396;
 }
 
 #contact {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 85px);
   scroll-margin-top: 60px;
 }
 
@@ -414,13 +414,34 @@ li {
   margin-left: 0.5rem;
 }
 
-.position{
-  background-color: black;
-  height: 1px;
-  width: 1px;
+form{
+  display: grid;
+  grid-template-rows: min-content min-content min-content;
+  font-family: 'Montserrat Medium';
+  justify-content: center;
+}
+form>*{
+  font-family: 'Montserrat Medium';
+  font-size: 1.5vw;
+}
+#name{
+  grid-row: 1/2;
+  font-size: 1.25vw;
+  height: min-content;
+}
+#message{
+  grid-row: 2/3;
+}
+#send-email-button{
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
 }
 
-.plane{
+.send-msg-disclaimer{
+  font-size: 1.5vw;
+  font-family: 'Montserrat Medium';
+  text-align: center;
 }
 
 .project-link,
@@ -431,7 +452,7 @@ li {
 
 footer {
   background-color: black;
-  min-height: 25px;
+  height: 25px;
 }
 
 /* DO NOT MOVE: */

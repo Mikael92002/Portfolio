@@ -8,6 +8,12 @@
     <script src="js/ScrollTrigger.min.js" defer></script>
     <script src="js/ScrollSmoother.min.js" defer></script>
     <script src="js/MotionPathPlugin.min.js" defer></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+      defer
+    ></script>
+    <script type="text/javascript" src="js/emailJsSetup.js" defer></script>
     <script src="js/script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -344,6 +350,23 @@
     </section>
     <section id="contact">
       <h1 class="contact-heading">CONTACT</h1>
+      <p class="send-msg-disclaimer">Send Mikael a message:</p>
+      <form id="email-form">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name here..."
+          required
+        />
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Your message here..."
+          required
+        ></textarea>
+        <button id="send-email-button" type="submit">Send</button>
+      </form>
     </section>
     <footer></footer>
   </body>
