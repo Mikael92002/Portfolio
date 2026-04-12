@@ -144,31 +144,3 @@ function resizeInvisibleText() {
 
 window.addEventListener("load", resizeInvisibleText);
 window.addEventListener("resize", resizeInvisibleText);
-
-const planeImg = document.querySelector(".plane>img");
-console.log(planeImg.offsetWidth);
-
-const contactSection = "#contact";
-
-const contactSectionTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: contactSection,
-    pin: true,
-    pinSpacing: false,
-    start: "top bottom",
-    end: "bottom top-=60px",
-    scrub: true,
-    invalidateOnRefresh: true,
-    markers: true,
-  },
-});
-
-contactSectionTl.to(".plane>img", {
-  motionPath: {
-    path: [{ x: window.innerWidth, y: 150 }],
-    alignOrigin: [0.5, 0.5],
-    autoRotate: true,
-  },
-  transformOrigin: "50% 50%",
-  ease: "power1.inOut",
-});
