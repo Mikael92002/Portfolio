@@ -44,6 +44,10 @@ body {
   scroll-behavior: smooth;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 .hidden {
   opacity: 0;
 }
@@ -179,25 +183,52 @@ li {
   );
 }
 
-.pill {
+.pill-container {
   position: absolute;
   right: 10vw;
   top: 5vw;
+  z-index: 5;
 }
 
-.pill > div {
+.pill {
   background-color: #a44033;
   color: #f5e9dc;
   font-family: "Montserrat Medium", sans-serif;
   font-size: 1.5vw;
   font-weight: bold;
-  padding: 0.5vw 0.5vw;
+  padding: 0.5vw 1.0vw;
   border-radius: 50px;
   transform: rotate(-20deg);
   width: fit-content;
   height: fit-content;
-  margin-top: 1rem;
-  margin-left: 1rem;
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pill .pill-default {
+  display: inline-block;
+}
+
+.pill .pill-hover {
+  position: absolute;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.pill:hover .pill-default {
+  opacity: 0;
+}
+
+.pill:hover .pill-hover {
+  opacity: 1;
 }
 
 .alt-titles {
@@ -386,7 +417,8 @@ li {
   margin: 0px 2px;
 }
 
-.code-link, #send-email-button {
+.code-link,
+#send-email-button {
   background-color: #a44033;
   color: white;
   padding: 0.25vw 0.75vw;
@@ -397,13 +429,20 @@ li {
   margin: 0 auto;
   height: fit-content;
 }
-.code-link:hover, #send-email-button:hover {
+.code-link:hover,
+#send-email-button:hover {
   background-color: #a4403396;
 }
 
 #contact {
   min-height: calc(100vh - 85px);
   scroll-margin-top: 60px;
+  position: relative;
+}
+
+.plane{
+  position: absolute;
+  pointer-events: none;
 }
 
 .contact-heading {
@@ -414,33 +453,33 @@ li {
   margin-left: 0.5rem;
 }
 
-form{
+form {
   display: grid;
   grid-template-rows: min-content min-content min-content;
-  font-family: 'Montserrat Medium';
+  font-family: "Montserrat Medium";
   justify-content: center;
 }
-form>*{
-  font-family: 'Montserrat Medium';
+form > * {
+  font-family: "Montserrat Medium";
   font-size: 1.5vw;
 }
-#name{
+#name {
   grid-row: 1/2;
   font-size: 1.25vw;
   height: min-content;
 }
-#message{
+#message {
   grid-row: 2/3;
 }
-#send-email-button{
+#send-email-button {
   margin-left: auto;
   margin-right: 0;
   width: fit-content;
 }
 
-.send-msg-disclaimer{
+.send-msg-disclaimer {
   font-size: 1.5vw;
-  font-family: 'Montserrat Medium';
+  font-family: "Montserrat Medium";
   text-align: center;
 }
 
