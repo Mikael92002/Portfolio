@@ -1,7 +1,5 @@
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-let featuredWorkScrollTrigger = null;
-let featuredWorkTimeline = null;
 let planeTween = null;
 
 const SELECTORS = {
@@ -12,58 +10,39 @@ const SELECTORS = {
   location: ".location>div",
   pill: ".pill",
   work: ".work",
+  hero: ".hero",
   body: "body",
   transitionText: "#transition-text",
+  transitionTextContainer: ".transition-text-container",
   invisibleTransition: ".transition-text.invisible",
-  projectContainer: ".project-container",
   plane: ".plane",
+  dotOne: ".dot-1",
+  dotTwo: ".dot-2",
+  dotThree: ".dot-3"
 };
-
-function getScrollWidth() {
-  const container = document.querySelector(SELECTORS.projectContainer);
-  if (!container) return 0;
-  const scrollDistance = container.offsetWidth - window.innerWidth;
-  return scrollDistance > 0 ? scrollDistance : 0;
-}
 
 function resizeInvisibleText() {
   const source = document.querySelector(SELECTORS.transitionText);
   const target = document.querySelector(SELECTORS.invisibleTransition);
-  
+
   if (source && target) {
+    const originalStyle = source.getAttribute("style") || "";
+
+    source.style.transform = "none";
+    source.style.opacity = "1";
+    source.style.visibility = "visible";
+
     const rect = source.getBoundingClientRect();
+
+    if (originalStyle) {
+      source.setAttribute("style", originalStyle);
+    } else {
+      source.removeAttribute("style");
+    }
+
     target.style.width = `${rect.width}px`;
     target.style.height = `${rect.height}px`;
   }
-}
-
-function initFeaturedWorkScroll() {
-  if (featuredWorkScrollTrigger) featuredWorkScrollTrigger.kill();
-  if (featuredWorkTimeline) featuredWorkTimeline.kill();
-
-  const projectContainer = document.querySelector(SELECTORS.projectContainer);
-  const scrollDistance = getScrollWidth();
-
-  if (!projectContainer || scrollDistance <= 0) return;
-
-  featuredWorkTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: SELECTORS.work,
-      pin: true,
-      pinSpacing: true,
-      start: "top 60px",
-      end: () => `+=${getScrollWidth()}`,
-      scrub: 1,
-      invalidateOnRefresh: true, 
-    },
-  });
-
-  featuredWorkTimeline.to(projectContainer, {
-    x: () => -getScrollWidth(),
-    ease: "none",
-  });
-
-  featuredWorkScrollTrigger = featuredWorkTimeline.scrollTrigger;
 }
 
 function initPlaneAnimation() {
@@ -71,66 +50,138 @@ function initPlaneAnimation() {
     planeTween.kill();
   }
 
+  const pathArr = [
+    { x: 0, y: 0 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
+    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth, y: window.innerHeight * 0.35 },
+  ];
+
   planeTween = gsap.to(SELECTORS.plane, {
-    duration: 5,
+    duration: 10,
     repeat: -1,
     ease: "none",
     motionPath: {
-      path: () => [
-        { x: 0, y: 0 },
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
-        { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
-        { x: window.innerWidth, y: window.innerHeight * 0.35 }
-      ],
+      path: pathArr,
+      autoRotate: true,
+    },
+  });
+
+  dotTween = gsap.to(SELECTORS.dotOne, {
+    duration: 10,
+    repeat: -1,
+    delay: 1,
+    ease: "steps(25)",
+    motionPath: {
+      path: pathArr,
       autoRotate: true,
     }
-  });
+  })
 }
 
 function initHeroIntro() {
-  gsap.set([SELECTORS.name, SELECTORS.heroImg, SELECTORS.jobTitle, SELECTORS.altTitles, SELECTORS.location, SELECTORS.pill], {
-    visibility: "visible",
-  });
+  gsap.set(
+    [
+      SELECTORS.name,
+      SELECTORS.heroImg,
+      SELECTORS.jobTitle,
+      SELECTORS.altTitles,
+      SELECTORS.location,
+      SELECTORS.pill,
+    ],
+    {
+      visibility: "visible",
+    },
+  );
 
-  gsap.timeline()
+  gsap
+    .timeline()
     .from(SELECTORS.name, { yPercent: 150, duration: 1, ease: "circ.out" })
-    .from(SELECTORS.heroImg, { yPercent: 20, opacity: 0, duration: 1.5, ease: "power4.out" }, "<")
-    .from([SELECTORS.altTitles, SELECTORS.transitionText], { xPercent: -100, opacity: 0, duration: 1 }, "<")
+    .from(
+      SELECTORS.heroImg,
+      { yPercent: 20, opacity: 0, duration: 1.5, ease: "power4.out" },
+      "<",
+    )
+    .from(
+      [SELECTORS.altTitles, SELECTORS.transitionTextContainer],
+      { xPercent: -100, opacity: 0, duration: 1 },
+      "<",
+    )
     .from(SELECTORS.location, { xPercent: 100, opacity: 0, duration: 1 }, "<")
     .from(SELECTORS.pill, { opacity: 0, duration: 1 }, "<")
     .from(SELECTORS.jobTitle, { opacity: 0, duration: 0.5 }, ">");
 }
 
 function initPillAnimations() {
-  const loopPill = gsap.timeline({ repeat: 3 })
+  const loopPill = gsap
+    .timeline({ repeat: 3 })
     .to(SELECTORS.pill, { rotation: 20, ease: "power1.inOut", duration: 0.2 })
     .to(SELECTORS.pill, { rotation: -20, ease: "power1.inOut", duration: 0.2 });
 
-  gsap.timeline({ repeat: -1, delay: 1 })
+  gsap
+    .timeline({ repeat: -1, delay: 1 })
     .to(SELECTORS.pill, { scale: 1.2, duration: 0.5, ease: "power3.inOut" })
     .add(loopPill, "-=0.5")
-    .to(SELECTORS.pill, { scale: 1, duration: 0.5, ease: "power3.inOut" }, "-=0.5")
+    .to(
+      SELECTORS.pill,
+      { scale: 1, duration: 0.5, ease: "power3.inOut" },
+      "-=0.5",
+    )
     .to(SELECTORS.pill, { duration: 4 });
 }
 
 function initTransitionScrub() {
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: SELECTORS.work,
-      scrub: 1,
-      start: "top bottom",
-      end: "75% bottom",
-      invalidateOnRefresh: true,
-      onLeave: () => gsap.to(SELECTORS.transitionText, { autoAlpha: 0, duration: 0.2, overwrite: "auto" }),
-      onEnterBack: () => gsap.to(SELECTORS.transitionText, { autoAlpha: 1, duration: 0.2, overwrite: "auto" }),
-    },
-  }).to(SELECTORS.transitionText, { yPercent: 100, ease: "none" });
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: SELECTORS.hero,
+        scrub: 1,
+        start: "bottom bottom",
+        end: "190% bottom",
+        invalidateOnRefresh: true,
+        onLeave: () =>
+          gsap.to(SELECTORS.transitionText, {
+            autoAlpha: 0,
+            duration: 0.2,
+            overwrite: "auto",
+          }),
+        onEnterBack: () =>
+          gsap.to(SELECTORS.transitionText, {
+            autoAlpha: 1,
+            duration: 0.2,
+            overwrite: "auto",
+          }),
+      },
+    })
+    .to(SELECTORS.transitionText, { yPercent: 100, ease: "none" });
 }
 
-function handleGlobalLayoutSync() {
+function initAnchorScrolls() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", e => {
+      e.preventDefault();
+      const target = anchor.getAttribute("href");
+      if (target === "#") return;
+
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: {
+          y: target,
+          offsetY: 60, 
+        },
+        ease: "power1.inOut",
+        autoKill: true, 
+      });
+    });
+  });
+}
+
+function handleGlobalRevert() {
   resizeInvisibleText();
-  initFeaturedWorkScroll();
-  
+}
+
+function handleGlobalRefresh() {
   if (planeTween) {
     const currentProgress = planeTween.progress();
     gsap.set(SELECTORS.plane, { clearProps: "transform" });
@@ -139,25 +190,23 @@ function handleGlobalLayoutSync() {
   }
 }
 
-function destroyAnimations() {
-  window.removeEventListener("resize", handleGlobalLayoutSync);
-  ScrollTrigger.removeEventListener("refreshInit", handleGlobalLayoutSync);
-  if (featuredWorkScrollTrigger) featuredWorkScrollTrigger.kill();
-  if (featuredWorkTimeline) featuredWorkTimeline.kill();
-  if (planeTween) planeTween.kill();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   initHeroIntro();
   initPillAnimations();
   initTransitionScrub();
-  initFeaturedWorkScroll();
   initPlaneAnimation();
+  initAnchorScrolls();
 });
 
 window.addEventListener("load", () => {
   resizeInvisibleText();
-  
-  ScrollTrigger.addEventListener("refreshInit", handleGlobalLayoutSync);
-  window.addEventListener("resize", handleGlobalLayoutSync);
+
+  ScrollTrigger.addEventListener("revert", handleGlobalRevert);
+  ScrollTrigger.addEventListener("refresh", handleGlobalRefresh);
 });
+
+function destroyAnimations() {
+  ScrollTrigger.removeEventListener("revert", handleGlobalRevert);
+  ScrollTrigger.removeEventListener("refresh", handleGlobalRefresh);
+  if (planeTween) planeTween.kill();
+}
