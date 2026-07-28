@@ -203,7 +203,6 @@ function initTransitionScrub() {
         scrub: 1,
         start: "bottom bottom",
         end: "190% bottom",
-        invalidateOnRefresh: true,
         onLeave: () =>
           gsap.to(SELECTORS.transitionText, {
             autoAlpha: 0,
@@ -218,7 +217,11 @@ function initTransitionScrub() {
           }),
       },
     })
-    .to(SELECTORS.transitionText, { yPercent: 100, ease: "none" });
+    .fromTo(
+      SELECTORS.transitionText,
+      { yPercent: 0 },
+      { yPercent: 100, ease: "none" },
+    );
 }
 
 function initAnchorScrolls() {
@@ -262,14 +265,13 @@ function handleGlobalRefresh() {
 document.addEventListener("DOMContentLoaded", () => {
   initHeroIntro();
   initPillAnimations();
-  initTransitionScrub();
   initPlaneAnimation();
   initAnchorScrolls();
 });
 
 window.addEventListener("load", () => {
   resizeInvisibleText();
-
+  initTransitionScrub();
   ScrollTrigger.addEventListener("revert", handleGlobalRevert);
   ScrollTrigger.addEventListener("refresh", handleGlobalRefresh);
 });
