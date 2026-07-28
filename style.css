@@ -440,15 +440,19 @@ li {
 .plane{
   position: absolute;
   pointer-events: none;
-  transform: translateX(-100%);
+  top: 0;
+  left: 0;
 }
 
 .dash{
   background-color: black;
   color: black;
-  width: 30px;
+  width: 10px;
   height: 5px;
-  border-radius: 20px;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
 }
 
 .contact-heading {

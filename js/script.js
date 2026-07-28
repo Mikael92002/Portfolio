@@ -1,6 +1,7 @@
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 let planeTimeline = null;
+const contactSection = document.querySelector("#contact");
 
 const SELECTORS = {
   name: ".name>div",
@@ -44,40 +45,103 @@ function resizeInvisibleText() {
 }
 
 function initPlaneAnimation() {
-  if(planeTimeline){
+  if (planeTimeline) {
     planeTimeline.kill();
   }
+
+  const targetContainer = contactSection || document.querySelector("#contact");
+  if (targetContainer) {
+    targetContainer
+      .querySelectorAll(SELECTORS.dash)
+      .forEach((dash) => dash.remove());
+  }
+
+  gsap.set(SELECTORS.plane, {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    xPercent: -50,
+    yPercent: -50,
+    transformOrigin: "50% 50%",
+  });
 
   const pathArr = [
     { x: 0, y: 0 },
     { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
     { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
     { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth, y: window.innerHeight * 0.35 },
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
   ];
 
-  planeTimeline = gsap
-  .timeline()
-  .to(SELECTORS.plane, {
+  const duration = 10;
+  const spawnInterval = 0.15;
+  const totalDashes = Math.floor(duration / spawnInterval);
+
+  const delay = 0.15;
+  const progressDelay = delay / duration;
+
+  const rawPath = MotionPathPlugin.arrayToRawPath(pathArr);
+  MotionPathPlugin.cacheRawPathMeasurements(rawPath);
+
+  const dashes = [];
+
+  for (let i = 1; i <= totalDashes; i++) {
+    const progress = i / totalDashes;
+    const point = MotionPathPlugin.getPositionOnPath(rawPath, progress, true);
+
+    const dash = document.createElement("div");
+    dash.classList.add("dash");
+
+    gsap.set(dash, {
+      x: point.x,
+      y: point.y,
+      rotation: point.angle,
+      xPercent: -50,
+      yPercent: -50,
+      transformOrigin: "50% 50%",
+    });
+    dash.style.visibility = "hidden";
+
+    if (targetContainer) {
+      targetContainer.append(dash);
+    }
+
+    dashes.push({
+      element: dash,
+      progress: progress,
+    });
+  }
+
+  planeTimeline = gsap.timeline().to(SELECTORS.plane, {
     duration: 10,
-    repeat: -1,
+    repeat: 0,
     ease: "none",
     motionPath: {
       path: pathArr,
       autoRotate: true,
-    }
-  }
-  )
-  .to(SELECTORS.dash, {
-    duration: 10,
-    repeat: -1,
-    stagger: 1,
-    ease: "steps(25)",
-    motionPath: {
-      path: pathArr,
-      autoRotate: true,
-    }
-  })
+      alignOrigin: [0.5, 0.5],
+    },
+    onUpdate: () => {
+      const currentProgress = planeTimeline.progress();
+      const isAtEnd = currentProgress >= 0.999;
+
+      dashes.forEach((dash) => {
+        dash.element.style.visibility =
+          isAtEnd || currentProgress >= dash.progress + progressDelay
+            ? "visible"
+            : "hidden";
+      });
+    },
+    onComplete: () => {
+      const interval = setInterval(() => {
+        if (dashes.length > 0) {
+          dashes.shift().element.remove();
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+    },
+  });
 }
 
 function initHeroIntro() {
@@ -158,8 +222,8 @@ function initTransitionScrub() {
 }
 
 function initAnchorScrolls() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", e => {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
       e.preventDefault();
       const target = anchor.getAttribute("href");
       if (target === "#") return;
@@ -168,10 +232,10 @@ function initAnchorScrolls() {
         duration: 1,
         scrollTo: {
           y: target,
-          offsetY: 60, 
+          offsetY: 60,
         },
         ease: "power1.inOut",
-        autoKill: true, 
+        autoKill: true,
       });
     });
   });
@@ -184,12 +248,12 @@ function handleGlobalRevert() {
 function handleGlobalRefresh() {
   if (planeTimeline) {
     const currentProgress = planeTimeline.progress();
-    planeTimeline.getChildren().forEach((tween)=>{
+    planeTimeline.getChildren().forEach((tween) => {
       const targetsArr = tween.targets();
-      targetsArr.forEach((target)=>{
-        gsap.set(target, {clearProps: "transform"});
-      })
-    })
+      targetsArr.forEach((target) => {
+        gsap.set(target, { clearProps: "transform" });
+      });
+    });
     initPlaneAnimation();
     planeTimeline.progress(currentProgress);
   }
@@ -213,5 +277,5 @@ window.addEventListener("load", () => {
 function destroyAnimations() {
   ScrollTrigger.removeEventListener("revert", handleGlobalRevert);
   ScrollTrigger.removeEventListener("refresh", handleGlobalRefresh);
-  if(planeTimeline) planeTimeline.kill();
+  if (planeTimeline) planeTimeline.kill();
 }
