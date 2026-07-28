@@ -1,6 +1,6 @@
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-let planeTween = null;
+let planeTimeline = null;
 
 const SELECTORS = {
   name: ".name>div",
@@ -16,9 +16,7 @@ const SELECTORS = {
   transitionTextContainer: ".transition-text-container",
   invisibleTransition: ".transition-text.invisible",
   plane: ".plane",
-  dotOne: ".dot-1",
-  dotTwo: ".dot-2",
-  dotThree: ".dot-3"
+  dash: ".dash",
 };
 
 function resizeInvisibleText() {
@@ -46,8 +44,8 @@ function resizeInvisibleText() {
 }
 
 function initPlaneAnimation() {
-  if (planeTween) {
-    planeTween.kill();
+  if(planeTimeline){
+    planeTimeline.kill();
   }
 
   const pathArr = [
@@ -58,20 +56,22 @@ function initPlaneAnimation() {
     { x: window.innerWidth, y: window.innerHeight * 0.35 },
   ];
 
-  planeTween = gsap.to(SELECTORS.plane, {
+  planeTimeline = gsap
+  .timeline()
+  .to(SELECTORS.plane, {
     duration: 10,
     repeat: -1,
     ease: "none",
     motionPath: {
       path: pathArr,
       autoRotate: true,
-    },
-  });
-
-  dotTween = gsap.to(SELECTORS.dotOne, {
+    }
+  }
+  )
+  .to(SELECTORS.dash, {
     duration: 10,
     repeat: -1,
-    delay: 1,
+    stagger: 1,
     ease: "steps(25)",
     motionPath: {
       path: pathArr,
@@ -182,11 +182,16 @@ function handleGlobalRevert() {
 }
 
 function handleGlobalRefresh() {
-  if (planeTween) {
-    const currentProgress = planeTween.progress();
-    gsap.set(SELECTORS.plane, { clearProps: "transform" });
+  if (planeTimeline) {
+    const currentProgress = planeTimeline.progress();
+    planeTimeline.getChildren().forEach((tween)=>{
+      const targetsArr = tween.targets();
+      targetsArr.forEach((target)=>{
+        gsap.set(target, {clearProps: "transform"});
+      })
+    })
     initPlaneAnimation();
-    planeTween.progress(currentProgress);
+    planeTimeline.progress(currentProgress);
   }
 }
 
@@ -208,5 +213,5 @@ window.addEventListener("load", () => {
 function destroyAnimations() {
   ScrollTrigger.removeEventListener("revert", handleGlobalRevert);
   ScrollTrigger.removeEventListener("refresh", handleGlobalRefresh);
-  if (planeTween) planeTween.kill();
+  if(planeTimeline) planeTimeline.kill();
 }
