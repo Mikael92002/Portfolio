@@ -1,6 +1,10 @@
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 let planeTimeline = null;
+let dashes = null;
+// 1-indexed so there are no 0/denominator divisions:
+let deletedCount = 1;
+let dashDeleteStarted = false;
 const contactSection = document.querySelector("#contact");
 
 const SELECTORS = {
@@ -49,13 +53,6 @@ function initPlaneAnimation() {
     planeTimeline.kill();
   }
 
-  const targetContainer = contactSection || document.querySelector("#contact");
-  if (targetContainer) {
-    targetContainer
-      .querySelectorAll(SELECTORS.dash)
-      .forEach((dash) => dash.remove());
-  }
-
   gsap.set(SELECTORS.plane, {
     position: "absolute",
     top: 0,
@@ -73,18 +70,80 @@ function initPlaneAnimation() {
     { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
   ];
 
+  planeTimeline = gsap.timeline().to(SELECTORS.plane, {
+    scrollTrigger: {
+      trigger: SELECTORS.contactSection,
+      markers: true,
+      start: "top bottom",
+    },
+    duration: 10,
+    repeat: 0,
+    ease: "none",
+    motionPath: {
+      path: pathArr,
+      autoRotate: true,
+      alignOrigin: [0.5, 0.5],
+    },
+    onUpdate: () => {
+      if (planeTimeline) {
+        const currentProgress = planeTimeline.progress();
+        // already at end, return if onUpdate called unexpectedly:
+        if (currentProgress >= 0.999) {
+          return;
+        }
+
+        if (dashes) {
+          dashes.forEach((dash) => {
+            dash.element.style.visibility =
+              currentProgress >= dash.progress + 0.01 ? "visible" : "hidden";
+          });
+        }
+      }
+    },
+    onComplete: () => {
+      if (planeTimeline) {
+        if (dashDeleteStarted) {
+          return;
+        }
+        if (!(dashes && dashes.length > 0)) {
+          return;
+        }
+        console.log(dashes);
+        const interval = setInterval(() => {
+          dashes.shift().element.remove();
+          deletedCount++;
+          if (dashes.length == 0) {
+            clearInterval(interval);
+          }
+        }, 100);
+        dashDeleteStarted = true;
+      }
+    },
+  });
+}
+
+function createDashes() {
+  const targetContainer = contactSection || document.querySelector("#contact");
+
+  const pathArr = [
+    { x: 0, y: 0 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
+    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
+  ];
+
   const duration = 10;
   const spawnInterval = 0.15;
   const totalDashes = Math.floor(duration / spawnInterval);
 
   const delay = 0.15;
-  const progressDelay = delay / duration;
 
   const rawPath = MotionPathPlugin.arrayToRawPath(pathArr);
   MotionPathPlugin.cacheRawPathMeasurements(rawPath);
 
   const dashes = [];
-
+  // draw divs from predetermined path:
   for (let i = 1; i <= totalDashes; i++) {
     const progress = i / totalDashes;
     const point = MotionPathPlugin.getPositionOnPath(rawPath, progress, true);
@@ -100,7 +159,6 @@ function initPlaneAnimation() {
       yPercent: -50,
       transformOrigin: "50% 50%",
     });
-    dash.style.visibility = "hidden";
 
     if (targetContainer) {
       targetContainer.append(dash);
@@ -112,36 +170,89 @@ function initPlaneAnimation() {
     });
   }
 
-  planeTimeline = gsap.timeline().to(SELECTORS.plane, {
-    duration: 10,
-    repeat: 0,
-    ease: "none",
-    motionPath: {
-      path: pathArr,
-      autoRotate: true,
-      alignOrigin: [0.5, 0.5],
-    },
-    onUpdate: () => {
-      const currentProgress = planeTimeline.progress();
-      const isAtEnd = currentProgress >= 0.999;
+  return dashes;
+}
 
-      dashes.forEach((dash) => {
-        dash.element.style.visibility =
-          isAtEnd || currentProgress >= dash.progress + progressDelay
-            ? "visible"
-            : "hidden";
-      });
-    },
-    onComplete: () => {
-      const interval = setInterval(() => {
-        if (dashes.length > 0) {
-          dashes.shift().element.remove();
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-    },
+function createEndDashes() {
+  const targetContainer = contactSection || document.querySelector("#contact");
+
+  const pathArr = [
+    { x: 0, y: 0 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
+    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
+  ];
+
+  const duration = 10;
+  const spawnInterval = 0.15;
+  const totalDashes = Math.floor(duration / spawnInterval);
+
+  const delay = 0.15;
+
+  const rawPath = MotionPathPlugin.arrayToRawPath(pathArr);
+  MotionPathPlugin.cacheRawPathMeasurements(rawPath);
+
+  const dashes = [];
+  // draw divs from predetermined path:
+  for (let i = deletedCount; i <= totalDashes; i++) {
+    const progress = i / totalDashes;
+    const point = MotionPathPlugin.getPositionOnPath(rawPath, progress, true);
+
+    const dash = document.createElement("div");
+    dash.classList.add("dash");
+
+    gsap.set(dash, {
+      x: point.x,
+      y: point.y,
+      rotation: point.angle,
+      xPercent: -50,
+      yPercent: -50,
+      transformOrigin: "50% 50%",
+    });
+
+    if (targetContainer) {
+      targetContainer.append(dash);
+    }
+
+    dashes.push({
+      element: dash,
+      progress: progress,
+    });
+  }
+
+  return dashes;
+}
+
+function resizeDashes() {
+  if (!dashes) {
+    return;
+  }
+  dashes.forEach((dash) => {
+    dash.element.remove();
   });
+  // if plane is before end:
+  if (planeTimeline.progress() < 0.999) {
+    dashes = createDashes();
+  }
+  // if plane is after end:
+  else {
+    dashes = createEndDashes();
+  }
+}
+
+function initDashAnimation() {
+  if (!planeTimeline) {
+    return;
+  }
+  // globals:
+
+  // if plane hasn't reached end:
+  if (planeTimeline.progress() < 1) {
+  }
+  // if plane has reached end:
+  else {
+  }
 }
 
 function initHeroIntro() {
@@ -259,6 +370,7 @@ function handleGlobalRefresh() {
     });
     initPlaneAnimation();
     planeTimeline.progress(currentProgress);
+    resizeDashes();
   }
 }
 
@@ -267,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPillAnimations();
   initPlaneAnimation();
   initAnchorScrolls();
+  dashes = createDashes();
 });
 
 window.addEventListener("load", () => {
