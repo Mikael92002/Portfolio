@@ -22,6 +22,7 @@ const SELECTORS = {
   invisibleTransition: ".transition-text.invisible",
   plane: ".plane",
   dash: ".dash",
+  contact: "#contact",
 };
 
 function resizeInvisibleText() {
@@ -64,62 +65,83 @@ function initPlaneAnimation() {
 
   const pathArr = [
     { x: 0, y: 0 },
-    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
-    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // 0
+    { x: window.innerWidth * 0.55, y: window.innerHeight * 0.45 }, //1
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.35 }, //2
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.3 }, // 3
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.375 }, // 4
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.39 }, // 5
+    { x: window.innerWidth * 0.655, y: window.innerHeight * 0.375 }, //6
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.3375 }, //7
+    { x: window.innerWidth * 0.575, y: window.innerHeight * 0.375 }, // 8
+    { x: window.innerWidth * 0.56, y: window.innerHeight * 0.425 }, // 9
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.5 }, //10
+    { x: window.innerWidth * 0.69, y: window.innerHeight * 0.5 }, //11
+    { x: window.innerWidth * 0.71, y: window.innerHeight * 0.35 }, //12
+    { x: window.innerWidth * 0.75, y: window.innerHeight * 0.3375 }, // 13
+    { x: window.innerWidth * 0.78, y: window.innerHeight * 0.35 }, // 14
+    { x: window.innerWidth * 0.8, y: window.innerHeight * 0.5 }, // 15
+    { x: window.innerWidth * 0.89, y: window.innerHeight * 0.5 }, // 16
+    { x: window.innerWidth * 0.92, y: window.innerHeight * 0.455 }, // 17
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.42 }, // 18
+    { x: window.innerWidth * 0.85, y: window.innerHeight * 0.455 }, // 19
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.5 }, // 20
+    { x: window.innerWidth * 0.93, y: window.innerHeight * 0.455 }, // 21
+    { x: window.innerWidth * 0.935, y: window.innerHeight * 0.25 }, // 22
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.3 },
   ];
 
-  planeTimeline = gsap.timeline().to(SELECTORS.plane, {
-    scrollTrigger: {
-      trigger: SELECTORS.contactSection,
-      markers: true,
-      start: "top bottom",
-    },
-    duration: 10,
-    repeat: 0,
-    ease: "none",
-    motionPath: {
-      path: pathArr,
-      autoRotate: true,
-      alignOrigin: [0.5, 0.5],
-    },
-    onUpdate: () => {
-      if (planeTimeline) {
-        const currentProgress = planeTimeline.progress();
-        // already at end, return if onUpdate called unexpectedly:
-        if (currentProgress >= 0.999) {
-          return;
-        }
-
-        if (dashes) {
-          dashes.forEach((dash) => {
-            dash.element.style.visibility =
-              currentProgress >= dash.progress + 0.01 ? "visible" : "hidden";
-          });
-        }
-      }
-    },
-    onComplete: () => {
-      if (planeTimeline) {
-        if (dashDeleteStarted) {
-          return;
-        }
-        if (!(dashes && dashes.length > 0)) {
-          return;
-        }
-        console.log(dashes);
-        const interval = setInterval(() => {
-          dashes.shift().element.remove();
-          deletedCount++;
-          if (dashes.length == 0) {
-            clearInterval(interval);
+  planeTimeline = gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: SELECTORS.contact,
+        start: "top bottom",
+      },
+    })
+    .to(SELECTORS.plane, {
+      duration: 10,
+      repeat: 0,
+      ease: "none",
+      motionPath: {
+        path: pathArr,
+        autoRotate: true,
+        alignOrigin: [0.5, 0.5],
+      },
+      onUpdate: () => {
+        if (planeTimeline) {
+          const currentProgress = planeTimeline.progress();
+          // already at end, return if onUpdate called unexpectedly:
+          if (currentProgress >= 0.999) {
+            return;
           }
-        }, 100);
-        dashDeleteStarted = true;
-      }
-    },
-  });
+
+          if (dashes) {
+            dashes.forEach((dash) => {
+              dash.element.style.visibility =
+                currentProgress >= dash.progress + 0.01 ? "visible" : "hidden";
+            });
+          }
+        }
+      },
+      onComplete: () => {
+        if (planeTimeline) {
+          if (dashDeleteStarted) {
+            return;
+          }
+          if (!(dashes && dashes.length > 0)) {
+            return;
+          }
+          const interval = setInterval(() => {
+            dashes.shift().element.remove();
+            deletedCount++;
+            if (dashes.length == 0) {
+              clearInterval(interval);
+            }
+          }, 100);
+          dashDeleteStarted = true;
+        }
+      },
+    });
 }
 
 function createDashes() {
@@ -127,13 +149,33 @@ function createDashes() {
 
   const pathArr = [
     { x: 0, y: 0 },
-    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
-    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // 0
+    { x: window.innerWidth * 0.55, y: window.innerHeight * 0.45 }, //1
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.35 }, //2
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.3 }, // 3
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.375 }, // 4
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.39 }, // 5
+    { x: window.innerWidth * 0.655, y: window.innerHeight * 0.375 }, //6
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.3375 }, //7
+    { x: window.innerWidth * 0.575, y: window.innerHeight * 0.375 }, // 8
+    { x: window.innerWidth * 0.56, y: window.innerHeight * 0.425 }, // 9
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.5 }, //10
+    { x: window.innerWidth * 0.69, y: window.innerHeight * 0.5 }, //11
+    { x: window.innerWidth * 0.71, y: window.innerHeight * 0.35 }, //12
+    { x: window.innerWidth * 0.75, y: window.innerHeight * 0.3375 }, // 13
+    { x: window.innerWidth * 0.78, y: window.innerHeight * 0.35 }, // 14
+    { x: window.innerWidth * 0.8, y: window.innerHeight * 0.5 }, // 15
+    { x: window.innerWidth * 0.89, y: window.innerHeight * 0.5 }, // 16
+    { x: window.innerWidth * 0.92, y: window.innerHeight * 0.455 }, // 17
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.42 }, // 18
+    { x: window.innerWidth * 0.85, y: window.innerHeight * 0.455 }, // 19
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.5 }, // 20
+    { x: window.innerWidth * 0.93, y: window.innerHeight * 0.455 }, // 21
+    { x: window.innerWidth * 0.935, y: window.innerHeight * 0.25 }, // 22
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.3 },
   ];
 
-  const duration = 10;
+  const duration = 20;
   const spawnInterval = 0.15;
   const totalDashes = Math.floor(duration / spawnInterval);
 
@@ -150,6 +192,7 @@ function createDashes() {
 
     const dash = document.createElement("div");
     dash.classList.add("dash");
+    dash.style.visibility = "hidden";
 
     gsap.set(dash, {
       x: point.x,
@@ -178,13 +221,33 @@ function createEndDashes() {
 
   const pathArr = [
     { x: 0, y: 0 },
-    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.25 },
-    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5 },
-    { x: window.innerWidth + 20, y: window.innerHeight * 0.35 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // 0
+    { x: window.innerWidth * 0.55, y: window.innerHeight * 0.45 }, //1
+    { x: window.innerWidth * 0.45, y: window.innerHeight * 0.35 }, //2
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.3 }, // 3
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.375 }, // 4
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.39 }, // 5
+    { x: window.innerWidth * 0.655, y: window.innerHeight * 0.375 }, //6
+    { x: window.innerWidth * 0.635, y: window.innerHeight * 0.3375 }, //7
+    { x: window.innerWidth * 0.575, y: window.innerHeight * 0.375 }, // 8
+    { x: window.innerWidth * 0.56, y: window.innerHeight * 0.425 }, // 9
+    { x: window.innerWidth * 0.6, y: window.innerHeight * 0.5 }, //10
+    { x: window.innerWidth * 0.69, y: window.innerHeight * 0.5 }, //11
+    { x: window.innerWidth * 0.71, y: window.innerHeight * 0.35 }, //12
+    { x: window.innerWidth * 0.75, y: window.innerHeight * 0.3375 }, // 13
+    { x: window.innerWidth * 0.78, y: window.innerHeight * 0.35 }, // 14
+    { x: window.innerWidth * 0.8, y: window.innerHeight * 0.5 }, // 15
+    { x: window.innerWidth * 0.89, y: window.innerHeight * 0.5 }, // 16
+    { x: window.innerWidth * 0.92, y: window.innerHeight * 0.455 }, // 17
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.42 }, // 18
+    { x: window.innerWidth * 0.85, y: window.innerHeight * 0.455 }, // 19
+    { x: window.innerWidth * 0.87, y: window.innerHeight * 0.5 }, // 20
+    { x: window.innerWidth * 0.93, y: window.innerHeight * 0.455 }, // 21
+    { x: window.innerWidth * 0.935, y: window.innerHeight * 0.25 }, // 22
+    { x: window.innerWidth + 20, y: window.innerHeight * 0.3 },
   ];
 
-  const duration = 10;
+  const duration = 20;
   const spawnInterval = 0.15;
   const totalDashes = Math.floor(duration / spawnInterval);
 
@@ -377,7 +440,6 @@ function handleGlobalRefresh() {
 document.addEventListener("DOMContentLoaded", () => {
   initHeroIntro();
   initPillAnimations();
-  initPlaneAnimation();
   initAnchorScrolls();
   dashes = createDashes();
 });
@@ -385,6 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", () => {
   resizeInvisibleText();
   initTransitionScrub();
+  initPlaneAnimation();
   ScrollTrigger.addEventListener("revert", handleGlobalRevert);
   ScrollTrigger.addEventListener("refresh", handleGlobalRefresh);
 });

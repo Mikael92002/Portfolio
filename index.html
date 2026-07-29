@@ -268,22 +268,22 @@
     </section>
 
     <section id="contact">
-        <svg
-          class="plane"
-          height="35px"
-          width="35px"
-          version="1.1"
-          id="Capa_1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 203.228 203.228"
-          xml:space="preserve"
-        >
+      <svg
+        class="plane"
+        height="35px"
+        width="35px"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 203.228 203.228"
+        xml:space="preserve"
+      >
+        <g>
           <g>
-            <g>
-              <path
-                style="fill: #010002"
-                d="M202.991,50.805c0.068-0.1,0.129-0.208,0.168-0.326c0.011-0.05,0.011-0.1,0.025-0.161
+            <path
+              style="fill: #010002"
+              d="M202.991,50.805c0.068-0.1,0.129-0.208,0.168-0.326c0.011-0.05,0.011-0.1,0.025-0.161
 			c0.021-0.104,0.043-0.218,0.036-0.326c0-0.018,0.011-0.036,0.007-0.05c-0.007-0.061-0.036-0.104-0.047-0.165
 			c-0.014-0.064-0.014-0.132-0.039-0.197c-0.007-0.025-0.025-0.043-0.039-0.064c-0.032-0.072-0.072-0.132-0.111-0.19
 			c-0.054-0.075-0.1-0.15-0.165-0.218c-0.047-0.043-0.093-0.075-0.147-0.118c-0.075-0.057-0.157-0.107-0.243-0.15
@@ -299,28 +299,41 @@
 			C59.468,77.532,59.239,77.678,59.056,77.861z M194.165,53.006l-82.085,47.989L64.367,79.296L194.165,53.006z M177.788,52.215
 			L46.878,71.347L8.573,57.841L177.788,52.215z M61.182,150.504l0.175-69.609l50.243,22.847c0.175,0.082,0.369,0.125,0.555,0.125
 			c0.236,0,0.472-0.064,0.68-0.19l61.542-35.985L61.182,150.504z"
-              />
-            </g>
+            />
           </g>
-        </svg>
+        </g>
+      </svg>
       <h1 class="contact-heading">CONTACT</h1>
-      <p class="send-msg-disclaimer">Send Mikael a message:</p>
-      <form id="email-form">
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Your name here..."
-          required
-        />
-        <textarea
-          name="message"
-          id="message"
-          placeholder="Your message here..."
-          required
-        ></textarea>
-        <button id="send-email-button" type="submit">Send</button>
-      </form>
+      <div class="contact-container">
+        <form id="email-form">
+          <div id="form-content-container">
+            <label for="name">Name*</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter Name"
+              autocomplete="name"
+              required
+            />
+            <label for="email">Email Address*</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter E-mail Address"
+            />
+            <label for="message">Message*</label>
+            <textarea
+              name="message"
+              id="message"
+              placeholder="Enter Message"
+              required
+            ></textarea>
+            <button id="send-email-button" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
     </section>
     <footer></footer>
   </body>

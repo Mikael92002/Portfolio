@@ -28,6 +28,12 @@
 }
 
 @font-face {
+  font-family: "Montserrat Light";
+  src: url("assets/Montserrat/static/Montserrat-Light.ttf");
+  font-display: block;
+}
+
+@font-face {
   font-family: "Melvina";
   src: url("assets/natural_signature/NaturalSignature.otf");
   font-display: block;
@@ -460,29 +466,43 @@ li {
   font-weight: 550;
   font-size: 4vw;
   margin: 0;
-  margin-left: 0.5rem;
+  position: relative;
+  z-index: 1;
+  background-color: #f5e9dc;
+  padding-left: 0.5rem;
 }
 
-form {
+.contact-container{
   display: grid;
-  grid-template-rows: min-content min-content min-content;
-  font-family: "Montserrat Medium";
-  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+  flex: 1;
 }
-form > * {
-  font-family: "Montserrat Medium";
+
+form{
+  margin-left: 0.5rem;
+  grid-column: 1/2;
+}
+
+#form-content-container{
+  flex-direction: column;
+  background-color: #f5e9dc;
+  z-index: 1;
+  position: relative;
+  width: min-content;
+}
+#form-content-container>*{
+  font-family: "Montserrat Light";
   font-size: 1.5vw;
-}
-#name {
-  grid-row: 1/2;
-  font-size: 1.25vw;
-  height: min-content;
   z-index: 1;
+  width: 25vw;
 }
-#message {
-  grid-row: 2/3;
-  z-index: 1;
+
+input, textarea{
+  background-color: #f5e9dc;
 }
+
 #send-email-button {
   margin-left: auto;
   margin-right: 0;
@@ -490,9 +510,14 @@ form > * {
 }
 
 .send-msg-disclaimer {
-  font-size: 1.5vw;
+  font-size: 3.5vw;
   font-family: "Montserrat Medium";
   text-align: center;
+  font-weight: 900;
+  grid-column: 2/3;
+}
+.send-msg-disclaimer>div{
+  margin-block: 3rem;
 }
 
 .project-link,
