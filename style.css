@@ -488,17 +488,6 @@ input, textarea{
   font-weight: 900;
 }
 
-.send-msg-disclaimer {
-  font-size: 3.5vw;
-  font-family: "Montserrat Medium";
-  text-align: center;
-  font-weight: 900;
-  grid-column: 2/3;
-}
-.send-msg-disclaimer>div{
-  margin-block: 3rem;
-}
-
 .project-link,
 .github-link {
   color: #a44033;
@@ -507,7 +496,22 @@ input, textarea{
 
 footer {
   background-color: black;
-  height: 25px;
+  height: fit-content;
+  padding: 0.2rem;
+}
+
+footer>div{
+  display: block;
+  color: white;
+  text-align: center;
+  font-family: "Montserrat Medium";
+  pointer-events: none;
+}
+
+.footer-initials{
+  border: 1px solid white;
+  padding-inline: 5px;
+  font-family: "Exat Wide Medium";
 }
 
 /* DO NOT MOVE: */
