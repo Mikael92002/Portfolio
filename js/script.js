@@ -95,7 +95,7 @@ function initPlaneAnimation() {
     .timeline({
       scrollTrigger: {
         trigger: SELECTORS.contact,
-        start: "top bottom",
+        start: "30% bottom",
       },
     })
     .to(SELECTORS.plane, {

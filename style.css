@@ -279,6 +279,7 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .below-text,
@@ -303,7 +304,9 @@ li {
   min-height: calc(100vh - 60px);
   color: black;
   scroll-margin-top: 60px;
-  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  background-color: #f5e9dc;
 }
 
 .featured-work-h1 {
@@ -321,78 +324,48 @@ li {
 .project-container {
   grid-column: 1/3;
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: auto;
+  align-content: center;
 }
 
 .project {
-  padding: 5vw;
-  height: 85vh;
   box-sizing: border-box;
-}
-
-.project-inner {
+  border: 1px solid gray;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #f6e3cf;
+  grid-row: span 2;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 0.25fr; 
-  height: 100%;               
-  width: 100%;
-  border-radius: 20px;
-  border: 2px solid black;
+  grid-template-rows: subgrid;
+  box-shadow: 0 0 1px 1px rgba(128, 128, 128, 0.205);
 }
 
-.project-image {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 17px;
-  min-height: 0; 
-}
-
-.project-image > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  min-height: 0;
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-}
-
-.project-content {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 0.3fr 0.7fr;
-  padding: 0.5rem;
-  column-gap: 1rem;
-}
-
-.project-content-left {
+.project-title {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Exat Wide Regular", sans-serif;
   font-size: large;
   padding-inline: 1rem;
-  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-.project-content-right {
+.project-content {
   font-family: "Exat Wide Light";
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-content>h3{
+  padding: 5px;
+  width: fit-content;
 }
 
 .project-content-right>div{
   font-family: "Exat Wide Regular", sans-serif;
-}
-
-.project-inner.two>.project-image>img{
-  object-fit: contain;
-  background-color: black;
-}
-
-.project-inner.three>.project-image>img{
-  object-fit: contain;
-  background-color: black;
 }
 
 .code-content{
@@ -446,8 +419,6 @@ li {
 .plane{
   position: absolute;
   pointer-events: none;
-  top: 0;
-  left: 0;
 }
 
 .dash{
@@ -470,6 +441,7 @@ li {
   z-index: 1;
   background-color: #f5e9dc;
   padding-left: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 .contact-container{
@@ -499,14 +471,21 @@ form{
   width: 25vw;
 }
 
+label{
+  font-weight: 900;
+}
+
 input, textarea{
   background-color: #f5e9dc;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 #send-email-button {
   margin-left: auto;
   margin-right: 0;
   width: fit-content;
+  font-weight: 900;
 }
 
 .send-msg-disclaimer {
