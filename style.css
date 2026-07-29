@@ -304,8 +304,6 @@ li {
   min-height: calc(100vh - 60px);
   color: black;
   scroll-margin-top: 60px;
-  z-index: 1;
-  position: relative;
   background-color: #f5e9dc;
 }
 
@@ -410,6 +408,14 @@ li {
   background-color: #a4403396;
 }
 
+#skills {
+  min-height: calc(100vh - 85px);
+  scroll-margin-top: 60px;
+  position: relative;
+  z-index: 1;
+  background-color: #f5e9dc;
+}
+
 #contact {
   min-height: calc(100vh - 85px);
   scroll-margin-top: 60px;
@@ -432,7 +438,7 @@ li {
   left: 0;
 }
 
-.contact-heading {
+.contact-heading, .skills-heading {
   font-family: "Exat Wide Regular";
   font-weight: 550;
   font-size: 4vw;
