@@ -429,7 +429,6 @@ function initTransitionScrub() {
         scrub: 1,
         start: "bottom bottom",
         end: "190% bottom",
-        markers: true,
         onLeave: () =>
           gsap.to(SELECTORS.transitionText_2, {
             autoAlpha: 0,
