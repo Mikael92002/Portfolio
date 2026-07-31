@@ -273,7 +273,7 @@ li {
   font-family: "Exat Wide Regular", sans-serif;
 }
 
-.transition-text-container {
+.transition-text-container, .transition-text-container-2 {
   grid-row: 3/4;
   grid-column: 1/2;
   display: flex;
@@ -283,7 +283,7 @@ li {
 }
 
 .below-text,
-.transition-text {
+.transition-text,.transition-text-2 {
   font-size: 1.5vw;
   margin: 0;
   margin-left: 1.5vw;
@@ -297,7 +297,7 @@ li {
   visibility: hidden;
 }
 
-.work {
+#work {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
   grid-template-rows: min-content 1fr;
@@ -307,7 +307,7 @@ li {
   background-color: #f5e9dc;
 }
 
-.featured-work-h1 {
+.featured-work-h1, .experience-heading {
   font-family: "Exat Wide Regular";
   font-weight: 550;
   font-size: 4vw;
@@ -408,8 +408,18 @@ li {
   background-color: #a4403396;
 }
 
+#experience{
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: min-content 1fr;
+  min-height: calc(100vh - 60px);
+  color: black;
+  scroll-margin-top: 60px;
+  background-color: #f5e9dc;
+}
+
 #skills {
-  min-height: calc(100vh - 85px);
+  min-height: calc(100vh - 60px);
   scroll-margin-top: 60px;
   position: relative;
   z-index: 1;
@@ -417,7 +427,7 @@ li {
 }
 
 #contact {
-  min-height: calc(100vh - 85px);
+  min-height: calc(100vh - 89px);
   scroll-margin-top: 60px;
   position: relative;
 }
@@ -482,12 +492,19 @@ label{
 }
 
 input, textarea{
-  background-color: #f5e9dc;
+  background-color: #f6e3cf;;
   padding: 0.25rem;
   margin-bottom: 1rem;
+  border: 1px solid grey;
+}
+
+textarea{
+  resize: none;
+  height: 100px;
 }
 
 #send-email-button {
+  display: block;
   margin-left: auto;
   margin-right: 0;
   width: fit-content;

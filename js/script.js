@@ -20,6 +20,9 @@ const SELECTORS = {
   transitionText: "#transition-text",
   transitionTextContainer: ".transition-text-container",
   invisibleTransition: ".transition-text.invisible",
+  transitionText_2: "#transition-text-2",
+  transitionTextContainer_2: ".transition-text-container-2",
+  invisibleTransition_2: ".transition-text-2.invisible",
   plane: ".plane",
   dash: ".dash",
   contact: "#contact",
@@ -46,6 +49,28 @@ function resizeInvisibleText() {
 
     target.style.width = `${rect.width}px`;
     target.style.height = `${rect.height}px`;
+  }
+
+  const source_2 = document.querySelector(SELECTORS.transitionText_2)
+  const target_2 = document.querySelector(SELECTORS.invisibleTransition_2);
+
+  if (source_2 && target_2) {
+    const originalStyle = source_2.getAttribute("style") || "";
+
+    source_2.style.transform = "none";
+    source_2.style.opacity = "1";
+    source_2.style.visibility = "visible";
+
+    const rect = source_2.getBoundingClientRect();
+
+    if (originalStyle) {
+      source_2.setAttribute("style", originalStyle);
+    } else {
+      source_2.removeAttribute("style");
+    }
+
+    target_2.style.width = `${rect.width}px`;
+    target_2.style.height = `${rect.height}px`;
   }
 }
 
@@ -395,6 +420,34 @@ function initTransitionScrub() {
       SELECTORS.transitionText,
       { yPercent: 0 },
       { yPercent: 100, ease: "none" },
+    );
+
+    gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: SELECTORS.work,
+        scrub: 1,
+        start: "bottom bottom",
+        end: "190% bottom",
+        markers: true,
+        onLeave: () =>
+          gsap.to(SELECTORS.transitionText_2, {
+            autoAlpha: 0,
+            duration: 0.2,
+            overwrite: "auto",
+          }),
+        onEnterBack: () =>
+          gsap.to(SELECTORS.transitionText_2, {
+            autoAlpha: 1,
+            duration: 0.2,
+            overwrite: "auto",
+          }),
+      },
+    })
+    .fromTo(
+      SELECTORS.transitionText_2,
+      { yPercent: 0 },
+      { yPercent: 235, ease: "none" },
     );
 }
 
