@@ -122,8 +122,8 @@ function resizeInvisibleTextHelper(transitionText, invisibleTransitionText) {
 }
 
 function initTransitionScrub() {
-  initTransitionScrubHelper(SELECTORS.hero, SELECTORS.transitionText, 100);
-  initTransitionScrubHelper(SELECTORS.work, SELECTORS.transitionText_2, 235);
+  initTransitionScrubHelper(SELECTORS.work, SELECTORS.transitionText, 100);
+  initTransitionScrubHelper(SELECTORS.experience, SELECTORS.transitionText_2, 235);
 }
 
 function initTransitionScrubHelper(trigger, transitionText, yPercent) {
@@ -132,8 +132,8 @@ function initTransitionScrubHelper(trigger, transitionText, yPercent) {
       scrollTrigger: {
         trigger: trigger,
         scrub: 1,
-        start: "bottom bottom",
-        end: "190% bottom",
+        start: "top bottom",
+        end: "90% bottom",
         onLeave: () =>
           gsap.to(transitionText, {
             autoAlpha: 0,
@@ -430,7 +430,6 @@ function initAnchorScrolls() {
           offsetY: 60,
         },
         ease: "power1.inOut",
-        autoKill: true,
       });
     });
   });
