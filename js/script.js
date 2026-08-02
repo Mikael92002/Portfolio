@@ -162,7 +162,6 @@ function initExperienceAnimations() {
     .timeline({
       scrollTrigger: {
         trigger: SELECTORS.experience,
-        markers: true,
         start: "50% bottom",
       },
     })
