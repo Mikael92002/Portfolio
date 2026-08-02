@@ -26,6 +26,10 @@ const SELECTORS = {
   plane: ".plane",
   dash: ".dash",
   contact: "#contact",
+  experience: "#experience",
+  experienceTitleContainer: ".experience-title-container",
+  hawlSvgContainer: ".hawl-svg-container",
+  experienceDescription: ".experience-description",
 };
 
 // --- Hero animations ---
@@ -150,8 +154,43 @@ function initTransitionScrubHelper(trigger, transitionText, yPercent) {
 
 // --- experience animations ---
 
-function initExperienceAnimations(){
-  
+function initExperienceAnimations() {
+  gsap.set([SELECTORS.experienceTitleContainer], {
+    visibility: "visible",
+  });
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: SELECTORS.experience,
+        markers: true,
+        start: "50% bottom",
+      },
+    })
+    .from(SELECTORS.experienceTitleContainer, {
+      xPercent: -30,
+      duration: 1,
+      opacity: 0,
+      ease: "power3.out",
+    })
+    .from(
+      SELECTORS.hawlSvgContainer,
+      {
+        duration: 1,
+        opacity: 0,
+        ease: "power1.out",
+      },
+      "<",
+    )
+    .from(
+      SELECTORS.experienceDescription,
+      {
+        xPercent: 30,
+        duration: 1,
+        opacity: 0,
+        ease: "power2.out",
+      },
+      "<",
+    );
 }
 
 // ---
@@ -422,6 +461,7 @@ function handleGlobalRefresh() {
 document.addEventListener("DOMContentLoaded", () => {
   initHeroIntro();
   initPillAnimations();
+  initExperienceAnimations();
   initAnchorScrolls();
   dashes = createDashes();
 });

@@ -435,6 +435,7 @@ li {
 }
 
 .experience-title-container {
+  visibility: hidden;
   font-size: 3vw;
   font-family: "Exat Wide Regular";
   text-align: right;
