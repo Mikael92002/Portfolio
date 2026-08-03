@@ -44,10 +44,6 @@
   font-display: block;
 }
 
-/* ==========================================
-   GLOBAL BASE STYLES
-   ========================================== */
-
 html,
 body {
   padding: 0;
@@ -131,10 +127,6 @@ li {
   height: 100%;
 }
 
-/* ==========================================
-   UNIFIED SECTION HEADINGS
-   ========================================== */
-
 .featured-work-h1,
 .experience-heading,
 .skills-heading,
@@ -160,10 +152,6 @@ li {
   align-items: flex-start;
   justify-content: flex-start;
 }
-
-/* ==========================================
-   DESKTOP HERO SECTION
-   ========================================== */
 
 .hero {
   box-sizing: border-box;
@@ -320,10 +308,6 @@ li {
   visibility: hidden;
 }
 
-/* ==========================================
-   WORK / FEATURED PROJECTS SECTION
-   ========================================== */
-
 #work {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -419,10 +403,6 @@ li {
   background-color: #a4403396;
 }
 
-/* ==========================================
-   EXPERIENCE SECTION
-   ========================================== */
-
 #experience {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -493,10 +473,6 @@ li {
   color: #a44033;
 }
 
-/* ==========================================
-   SKILLS SECTION
-   ========================================== */
-
 #skills {
   min-height: calc(100vh - 60px);
   scroll-margin-top: 60px;
@@ -548,10 +524,6 @@ li {
 .skill-category > ul > li img.big-logo {
   width: 50px;
 }
-
-/* ==========================================
-   CONTACT SECTION
-   ========================================== */
 
 #contact {
   min-height: calc(100vh - 89px);
@@ -656,10 +628,6 @@ footer > div {
   font-family: "Exat Wide Medium";
 }
 
-/* ==========================================
-   GSAP INITIAL VISIBILITY TARGETS
-   ========================================== */
-
 .name > div,
 .job-title > div,
 .hero-img-container > img,
@@ -668,11 +636,6 @@ footer > div {
 .pill {
   visibility: hidden;
 }
-
-/* ==========================================
-   REWORKED MOBILE & TABLET OVERRIDES (<768px)
-   FLUID CLAMP SCALING ACROSS 320px -> 768px
-   ========================================== */
 
 @media (max-width: 768px) {
   header{
@@ -699,7 +662,6 @@ footer > div {
     font-size: clamp(10px, 2.8vw, 12px);
   }
 
-  /* --- Hero Mobile Section --- */
   .hero {
     box-sizing: border-box;
     display: flex;
