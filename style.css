@@ -116,10 +116,11 @@ nav > ul > li {
 
 .right_list {
   display: flex;
+  column-gap: 0.5rem;
 }
 
 .right_list > li:last-child {
-  margin-right: 0.4vw;
+  margin-right: 1rem;
 }
 
 li {
