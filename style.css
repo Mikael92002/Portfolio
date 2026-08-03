@@ -527,7 +527,7 @@ li {
 }
 
 #contact {
-  min-height: calc(100vh - 89px);
+  height: calc(100vh - 89px);
   scroll-margin-top: 60px;
   position: relative;
 }
@@ -663,12 +663,12 @@ footer > div {
     font-size: clamp(10px, 2.8vw, 12px);
   }
 
-  .hero {
+  .hero, #experience {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: calc(100vh - 60px);
+    height: calc(100vh - 67px);
   }
 
   .name {
@@ -797,6 +797,9 @@ footer > div {
   .experience-description > ul {
     align-items: center;
     padding-left: 0;
+  }
+  #contact {
+    height: calc(100vh - 96px);
   }
 
   #email-form {
