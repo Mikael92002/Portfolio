@@ -638,7 +638,7 @@ footer > div {
 }
 
 @media (max-width: 768px) {
-  header{
+  header {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -647,7 +647,7 @@ footer > div {
     margin: 0;
   }
 
-  .right_list{
+  .right_list {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -796,6 +796,16 @@ footer > div {
   .experience-description > ul {
     align-items: center;
     padding-left: 0;
+  }
+
+  #email-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #send-email-button {
+    margin: auto;
   }
 
   #form-content-container {
