@@ -363,12 +363,9 @@ li {
   justify-content: space-between;
 }
 
-.code-content-left > button {
+.code-content-left > a {
   font-family: inherit;
   font-size: medium;
-}
-
-.code-content-left > button > a {
   color: white;
 }
 
@@ -381,9 +378,12 @@ li {
 .code-content-right > * {
   margin-inline: 0.1rem;
 }
+a {
+  display: inline-block;
+}
 
 #send-email-button,
-.code-content-left > button {
+.code-content-left > a {
   background-color: #a44033;
   color: white;
   padding: 0.3em 0.8em;
@@ -393,10 +393,11 @@ li {
   text-align: center;
   margin: 0 auto;
   height: fit-content;
+  border: 1px solid black;
 }
 
 #send-email-button:hover,
-.code-content-left > button:hover {
+.code-content-left > a:hover {
   background-color: #a4403396;
 }
 
@@ -660,7 +661,8 @@ footer > div {
     font-size: clamp(10px, 2.8vw, 12px);
   }
 
-  .hero, #experience {
+  .hero,
+  #experience {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
