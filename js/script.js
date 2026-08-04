@@ -385,20 +385,6 @@ function resizeDashes() {
   }
 }
 
-function initDashAnimation() {
-  if (!planeTimeline) {
-    return;
-  }
-  // globals:
-
-  // if plane hasn't reached end:
-  if (planeTimeline.progress() < 1) {
-  }
-  // if plane has reached end:
-  else {
-  }
-}
-
 function createPathArray() {
   return [
     { x: 0, y: 0 },
