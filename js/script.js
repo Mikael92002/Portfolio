@@ -8,7 +8,7 @@ let dashDeleteStarted = false;
 const contactSection = document.querySelector("#contact");
 
 const SELECTORS = {
-  name: ".name>div",
+  nameHeading: ".name",
   heroImg: ".hero-img-container>img",
   jobTitle: ".job-title>div",
   altTitles: ".alt-titles>div",
@@ -36,7 +36,7 @@ const SELECTORS = {
 function initHeroIntro() {
   gsap.set(
     [
-      SELECTORS.name,
+      SELECTORS.nameHeading,
       SELECTORS.heroImg,
       SELECTORS.jobTitle,
       SELECTORS.altTitles,
@@ -50,15 +50,24 @@ function initHeroIntro() {
 
   gsap
     .timeline()
-    .from(SELECTORS.name, { yPercent: 150, duration: 1, ease: "circ.out" })
+    .from(SELECTORS.nameHeading, {
+      yPercent: 150,
+      duration: 1,
+      ease: "circ.out",
+    })
     .from(
       SELECTORS.heroImg,
       { yPercent: 20, opacity: 0, duration: 1.5, ease: "power4.out" },
       "<",
     )
+    .from(SELECTORS.altTitles, { xPercent: -100, opacity: 0, duration: 1 }, "<")
     .from(
-      [SELECTORS.altTitles, SELECTORS.transitionTextContainer],
-      { xPercent: -100, opacity: 0, duration: 1 },
+      SELECTORS.transitionTextContainer,
+      {
+        xPercent: -100,
+        ease: "power2.inOut",
+        duration: 1.25,
+      },
       "<",
     )
     .from(SELECTORS.location, { xPercent: 100, opacity: 0, duration: 1 }, "<")
@@ -123,7 +132,11 @@ function resizeInvisibleTextHelper(transitionText, invisibleTransitionText) {
 
 function initTransitionScrub() {
   initTransitionScrubHelper(SELECTORS.work, SELECTORS.transitionText, 100);
-  initTransitionScrubHelper(SELECTORS.experience, SELECTORS.transitionText_2, 235);
+  initTransitionScrubHelper(
+    SELECTORS.experience,
+    SELECTORS.transitionText_2,
+    235,
+  );
 }
 
 function initTransitionScrubHelper(trigger, transitionText, yPercent) {

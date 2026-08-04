@@ -115,16 +115,12 @@ nav > ul > li {
   column-gap: 0.5rem;
 }
 
-.right_list > li:last-child {
-  margin-right: 1rem;
-}
-
 li {
   list-style-type: none;
   height: 100%;
 }
 
-.featured-work-h1,
+.featured-work-h2,
 .experience-heading,
 .skills-heading,
 .contact-heading {
@@ -161,17 +157,22 @@ li {
   scroll-margin-top: 60px;
 }
 
+.name-container{
+  overflow-y: hidden;
+}
+
 .name {
   width: 100%;
-  font-family: "Exat Wide Regular";
   color: black;
-  font-size: clamp(4.5rem, 11vw, 18rem);
   z-index: 2;
   text-wrap: nowrap;
   text-align: center;
   grid-row: 1/2;
   margin-bottom: -1vw;
   margin-top: -3vw;
+  font-family: "Exat Wide Regular";
+  font-size: clamp(4.5rem, 11vw, 18rem);
+  font-weight: 100;
 }
 
 .job-title {
@@ -723,7 +724,7 @@ footer > div {
     position: static;
   }
 
-  .featured-work-h1,
+  .featured-work-h2,
   .experience-heading,
   .skills-heading,
   .contact-heading {
