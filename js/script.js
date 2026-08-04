@@ -42,6 +42,7 @@ function initHeroIntro() {
       SELECTORS.altTitles,
       SELECTORS.location,
       SELECTORS.pill,
+      SELECTORS.transitionTextContainer
     ],
     {
       visibility: "visible",
@@ -284,8 +285,6 @@ function createDashes() {
   const spawnInterval = 0.15;
   const totalDashes = Math.floor(duration / spawnInterval);
 
-  const delay = 0.15;
-
   const pathArr = createPathArray();
 
   const rawPath = MotionPathPlugin.arrayToRawPath(pathArr);
@@ -329,8 +328,6 @@ function createEndDashes() {
   const duration = 20;
   const spawnInterval = 0.15;
   const totalDashes = Math.floor(duration / spawnInterval);
-
-  const delay = 0.15;
 
   const pathArr = createPathArray();
 

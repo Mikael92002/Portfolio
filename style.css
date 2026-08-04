@@ -158,7 +158,7 @@ li {
 }
 
 .name-container{
-  overflow-y: hidden;
+  overflow-y: clip;
 }
 
 .name {
@@ -629,12 +629,13 @@ footer > div {
   font-family: "Exat Wide Medium";
 }
 
-.name > div,
+.name,
 .job-title > div,
 .hero-img-container > img,
 .location > div,
 .alt-titles > div,
-.pill {
+.pill,
+.transition-text-container {
   visibility: hidden;
 }
 
@@ -838,11 +839,5 @@ footer > div {
   .plane,
   .dash {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  nav > ul {
-    font-size: 11px;
   }
 }
