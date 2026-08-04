@@ -610,6 +610,7 @@ footer {
   background-color: black;
   height: fit-content;
   padding: 0.5rem;
+  width: 100%;
 }
 
 footer > div {
@@ -639,7 +640,6 @@ footer > div {
 @media (max-width: 768px) {
   header {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     height: auto;
     padding: 0;
@@ -654,11 +654,20 @@ footer > div {
     padding-inline: 1rem;
   }
 
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
   nav > ul {
     gap: clamp(8px, 2.5vw, 16px);
     flex-wrap: wrap;
-    justify-content: center;
     font-size: clamp(10px, 2.8vw, 12px);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .hero,
@@ -833,7 +842,6 @@ footer > div {
 
 @media (max-width: 480px) {
   nav > ul {
-    gap: 8px;
     font-size: 11px;
   }
 }
